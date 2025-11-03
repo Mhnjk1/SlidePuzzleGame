@@ -15,7 +15,6 @@ export function GameControls() {
     isPaused,
     startPlaying,
     levelAttempts,
-    currentLevelIndex,
   } = useMotionGame();
   
   const { playSuccess, playHit } = useAudio();
@@ -24,6 +23,8 @@ export function GameControls() {
     message: '',
   });
   const [canProceed, setCanProceed] = useState(false);
+  const [showBallAnimation, setShowBallAnimation] = useState(false);
+  const [ballPath, setBallPath] = useState<{ row: number; col: number }[]>([]);
 
   const level = getCurrentLevel();
 
@@ -44,9 +45,11 @@ export function GameControls() {
     if (result.isReachable) {
       playSuccess();
       submitSolution(true);
+      setBallPath(result.path);
+      setShowBallAnimation(true);
       setFeedback({
         type: 'success',
-        message: `Puzzle solved! Path found in ${result.path.length - 1} steps.`,
+        message: `Perfect! The ball can now move from Start to End! Path length: ${result.path.length - 1} cells.`,
       });
       setCanProceed(true);
     } else {
@@ -54,7 +57,7 @@ export function GameControls() {
       submitSolution(false);
       setFeedback({
         type: 'error',
-        message: 'No clear path found! The blocks are blocking the way.',
+        message: 'The blocks are still blocking the path! Move them out of the way to create a clear route for the ball.',
       });
       setCanProceed(true);
     }
@@ -63,12 +66,16 @@ export function GameControls() {
   const handleNext = () => {
     setFeedback({ type: null, message: '' });
     setCanProceed(false);
+    setShowBallAnimation(false);
+    setBallPath([]);
     nextLevel();
   };
 
   const handleRestart = () => {
     setFeedback({ type: null, message: '' });
     setCanProceed(false);
+    setShowBallAnimation(false);
+    setBallPath([]);
     restartLevel();
   };
 
@@ -97,6 +104,11 @@ export function GameControls() {
           }`}
         >
           <p className="font-semibold">{feedback.message}</p>
+          {showBallAnimation && ballPath.length > 0 && (
+            <p className="text-sm mt-2">
+              The ball successfully traveled through {ballPath.length - 1} cells to reach the end!
+            </p>
+          )}
         </div>
       )}
 

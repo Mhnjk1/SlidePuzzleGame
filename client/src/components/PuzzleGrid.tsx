@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Block as BlockType } from '@/data/puzzleLevels';
-import { checkCollision } from '@/utils/pathfinding';
+import { checkCollision, isPathClear } from '@/utils/pathfinding';
 import { useMotionGame } from '@/lib/stores/useMotionGame';
 
 interface DraggableBlockProps {
@@ -144,11 +144,54 @@ function DraggableBlock({ block, cellSize, gridRows, gridCols, allBlocks, onMove
   );
 }
 
+interface AnimatedBallProps {
+  path: { row: number; col: number }[];
+  cellSize: number;
+  onComplete: () => void;
+}
+
+function AnimatedBall({ path, cellSize, onComplete }: AnimatedBallProps) {
+  const [currentIndex, setCurrentIndex] = useState(0);
+
+  useEffect(() => {
+    if (currentIndex >= path.length - 1) {
+      setTimeout(onComplete, 500);
+      return;
+    }
+
+    const timer = setTimeout(() => {
+      setCurrentIndex(prev => prev + 1);
+    }, 300);
+
+    return () => clearTimeout(timer);
+  }, [currentIndex, path.length, onComplete]);
+
+  if (path.length === 0) return null;
+
+  const currentPos = path[currentIndex];
+
+  return (
+    <div
+      className="absolute rounded-full bg-yellow-400 border-4 border-yellow-600 shadow-lg animate-bounce"
+      style={{
+        left: `${currentPos.col * cellSize + cellSize / 2 - 15}px`,
+        top: `${currentPos.row * cellSize + cellSize / 2 - 15}px`,
+        width: '30px',
+        height: '30px',
+        zIndex: 100,
+        transition: 'all 0.3s ease-in-out',
+      }}
+    />
+  );
+}
+
 export function PuzzleGrid() {
   const { blocks, updateBlocks, incrementMoves, getCurrentLevel } = useMotionGame();
   const level = getCurrentLevel();
   const gridRef = useRef<HTMLDivElement>(null);
   const [cellSize, setCellSize] = useState(60);
+  const [showBallAnimation, setShowBallAnimation] = useState(false);
+  const [ballPath, setBallPath] = useState<{ row: number; col: number }[]>([]);
 
   useEffect(() => {
     const updateCellSize = () => {
@@ -171,12 +214,31 @@ export function PuzzleGrid() {
     return () => window.removeEventListener('resize', updateCellSize);
   }, [level.gridCols, level.gridRows]);
 
+  useEffect(() => {
+    setShowBallAnimation(false);
+    setBallPath([]);
+  }, [level.id]);
+
   const handleBlockMove = (blockId: string, newRow: number, newCol: number) => {
     const updatedBlocks = blocks.map(b =>
       b.id === blockId ? { ...b, row: newRow, col: newCol } : b
     );
     updateBlocks(updatedBlocks);
     incrementMoves();
+    
+    const gridState = {
+      rows: level.gridRows,
+      cols: level.gridCols,
+      blocks: updatedBlocks,
+    };
+    const result = isPathClear(gridState, level.ballStart, level.ballEnd);
+    if (result.isReachable) {
+      setBallPath(result.path);
+      setShowBallAnimation(true);
+    } else {
+      setShowBallAnimation(false);
+      setBallPath([]);
+    }
   };
 
   const gridWidth = level.gridCols * cellSize;
@@ -208,28 +270,32 @@ export function PuzzleGrid() {
       )}
 
       <div
-        className="absolute rounded-full bg-green-500 border-4 border-green-700 shadow-lg animate-pulse"
+        className="absolute rounded-full bg-green-500 border-4 border-green-700 shadow-lg flex items-center justify-center text-white font-bold text-xs"
         style={{
-          left: `${level.ballStart.col * cellSize + cellSize / 2 - 12}px`,
-          top: `${level.ballStart.row * cellSize + cellSize / 2 - 12}px`,
-          width: '24px',
-          height: '24px',
+          left: `${level.ballStart.col * cellSize + cellSize / 2 - 15}px`,
+          top: `${level.ballStart.row * cellSize + cellSize / 2 - 15}px`,
+          width: '30px',
+          height: '30px',
           zIndex: 5,
         }}
-        title="Start"
-      />
+        title="Start - Ball begins here"
+      >
+        S
+      </div>
 
       <div
-        className="absolute rounded-full bg-red-500 border-4 border-red-700 shadow-lg"
+        className="absolute rounded-full bg-red-500 border-4 border-red-700 shadow-lg flex items-center justify-center text-white font-bold text-xs"
         style={{
-          left: `${level.ballEnd.col * cellSize + cellSize / 2 - 12}px`,
-          top: `${level.ballEnd.row * cellSize + cellSize / 2 - 12}px`,
-          width: '24px',
-          height: '24px',
+          left: `${level.ballEnd.col * cellSize + cellSize / 2 - 15}px`,
+          top: `${level.ballEnd.row * cellSize + cellSize / 2 - 15}px`,
+          width: '30px',
+          height: '30px',
           zIndex: 5,
         }}
-        title="End"
-      />
+        title="End - Ball must reach here"
+      >
+        E
+      </div>
 
       {blocks.map((block) => (
         <DraggableBlock
@@ -242,6 +308,14 @@ export function PuzzleGrid() {
           onMove={handleBlockMove}
         />
       ))}
+
+      {showBallAnimation && ballPath.length > 0 && (
+        <AnimatedBall
+          path={ballPath}
+          cellSize={cellSize}
+          onComplete={() => {}}
+        />
+      )}
     </div>
   );
 }

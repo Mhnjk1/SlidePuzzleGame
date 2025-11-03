@@ -96,7 +96,7 @@ export function MistakeReview() {
                   <AlertCircle className="w-8 h-8 text-red-600 dark:text-red-400 flex-shrink-0 mt-1" />
                   <div className="flex-1">
                     <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2">
-                      Level {level.id}: {level.title}
+                      Level {level.id} ({level.gridRows}×{level.gridCols} Grid)
                     </h3>
                     <p className="text-gray-700 dark:text-gray-300 mb-3">
                       <strong>Problem:</strong> No clear path was found from the Start (green) to the End (red) position.

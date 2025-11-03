@@ -63,9 +63,6 @@ export function GameHeader() {
             <p className="text-2xl font-bold text-emerald-600 dark:text-emerald-400">
               {level.id} / 20
             </p>
-            <p className="text-xs text-gray-600 dark:text-gray-400 mt-1">
-              {level.title}
-            </p>
           </div>
 
           <div className="bg-white dark:bg-gray-700 px-6 py-3 rounded-lg shadow-md">

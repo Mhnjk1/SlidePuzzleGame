@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import { GameHeader } from './GameHeader';
 import { PuzzleGrid } from './PuzzleGrid';
 import { GameControls } from './GameControls';
@@ -6,7 +7,29 @@ import { MistakeReview } from './MistakeReview';
 import { useMotionGame } from '@/lib/stores/useMotionGame';
 
 export function MotionGame() {
-  const { showSummary, showMistakeReview } = useMotionGame();
+  const { 
+    showSummary, 
+    showMistakeReview, 
+    isPlaying,
+    startPlaying,
+    decrementLevelTimer,
+    decrementGlobalTimer,
+  } = useMotionGame();
+
+  useEffect(() => {
+    startPlaying();
+  }, [startPlaying]);
+
+  useEffect(() => {
+    if (!isPlaying) return;
+
+    const interval = setInterval(() => {
+      decrementLevelTimer();
+      decrementGlobalTimer();
+    }, 1000);
+
+    return () => clearInterval(interval);
+  }, [isPlaying, decrementLevelTimer, decrementGlobalTimer]);
 
   if (showSummary && !showMistakeReview) {
     return <SummaryDashboard />;

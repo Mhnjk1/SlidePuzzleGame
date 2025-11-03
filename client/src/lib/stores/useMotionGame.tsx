@@ -14,8 +14,13 @@ interface MotionGameState {
   blocks: Block[];
   moves: number;
   timer: number;
+  levelTimer: number;
+  globalTimer: number;
+  ballRow: number;
+  ballCol: number;
   isPlaying: boolean;
   isPaused: boolean;
+  isTransitioning: boolean;
   levelAttempts: LevelAttempt[];
   gameCompleted: boolean;
   showSummary: boolean;
@@ -25,6 +30,10 @@ interface MotionGameState {
   updateBlocks: (blocks: Block[]) => void;
   incrementMoves: () => void;
   setTimer: (time: number) => void;
+  decrementLevelTimer: () => void;
+  decrementGlobalTimer: () => void;
+  moveBall: (row: number, col: number) => void;
+  checkWinCondition: () => boolean;
   startPlaying: () => void;
   pauseGame: () => void;
   resumeGame: () => void;
@@ -43,8 +52,13 @@ export const useMotionGame = create<MotionGameState>((set, get) => ({
   blocks: [...puzzleLevels[0].blocks],
   moves: 0,
   timer: 90,
+  levelTimer: 15,
+  globalTimer: 300,
+  ballRow: puzzleLevels[0].ballStart.row,
+  ballCol: puzzleLevels[0].ballStart.col,
   isPlaying: false,
   isPaused: false,
+  isTransitioning: false,
   levelAttempts: [],
   gameCompleted: false,
   showSummary: false,
@@ -57,6 +71,9 @@ export const useMotionGame = create<MotionGameState>((set, get) => ({
       blocks: [...level.blocks],
       moves: 0,
       timer: 90,
+      levelTimer: 15,
+      ballRow: level.ballStart.row,
+      ballCol: level.ballStart.col,
       isPlaying: false,
       isPaused: false,
     });
@@ -67,6 +84,40 @@ export const useMotionGame = create<MotionGameState>((set, get) => ({
   incrementMoves: () => set((state) => ({ moves: state.moves + 1 })),
 
   setTimer: (time) => set({ timer: time }),
+
+  decrementLevelTimer: () => {
+    const state = get();
+    if (!state.isPlaying || state.gameCompleted || state.isTransitioning) return;
+    
+    const newTime = state.levelTimer - 1;
+    set({ levelTimer: Math.max(0, newTime) });
+    
+    if (newTime <= 0) {
+      get().nextLevel();
+    }
+  },
+
+  decrementGlobalTimer: () => {
+    const state = get();
+    if (!state.isPlaying || state.gameCompleted) return;
+    
+    const newTime = state.globalTimer - 1;
+    set({ globalTimer: Math.max(0, newTime) });
+    
+    if (newTime <= 0) {
+      get().completeGame();
+    }
+  },
+
+  moveBall: (row, col) => {
+    set({ ballRow: row, ballCol: col });
+  },
+
+  checkWinCondition: () => {
+    const state = get();
+    const level = puzzleLevels[state.currentLevelIndex];
+    return state.ballRow === level.ballEnd.row && state.ballCol === level.ballEnd.col;
+  },
 
   startPlaying: () => set({ isPlaying: true, isPaused: false }),
 
@@ -94,6 +145,10 @@ export const useMotionGame = create<MotionGameState>((set, get) => ({
 
   nextLevel: () => {
     const state = get();
+    if (state.isTransitioning || state.gameCompleted) return;
+    
+    set({ isTransitioning: true });
+    
     if (state.currentLevelIndex < puzzleLevels.length - 1) {
       const nextIndex = state.currentLevelIndex + 1;
       const level = puzzleLevels[nextIndex];
@@ -102,8 +157,12 @@ export const useMotionGame = create<MotionGameState>((set, get) => ({
         blocks: [...level.blocks],
         moves: 0,
         timer: 90,
-        isPlaying: false,
+        levelTimer: 15,
+        ballRow: level.ballStart.row,
+        ballCol: level.ballStart.col,
+        isPlaying: true,
         isPaused: false,
+        isTransitioning: false,
       });
     } else {
       get().completeGame();
@@ -117,6 +176,9 @@ export const useMotionGame = create<MotionGameState>((set, get) => ({
       blocks: [...level.blocks],
       moves: 0,
       timer: 90,
+      levelTimer: 15,
+      ballRow: level.ballStart.row,
+      ballCol: level.ballStart.col,
       isPlaying: false,
       isPaused: false,
     });
@@ -129,8 +191,13 @@ export const useMotionGame = create<MotionGameState>((set, get) => ({
       blocks: [...level.blocks],
       moves: 0,
       timer: 90,
+      levelTimer: 15,
+      globalTimer: 300,
+      ballRow: level.ballStart.row,
+      ballCol: level.ballStart.col,
       isPlaying: false,
       isPaused: false,
+      isTransitioning: false,
       levelAttempts: [],
       gameCompleted: false,
       showSummary: false,

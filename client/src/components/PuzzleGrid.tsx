@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from 'react';
 import { Block as BlockType } from '@/data/puzzleLevels';
-import { checkCollision, isPathClear } from '@/utils/pathfinding';
+import { checkCollision } from '@/utils/pathfinding';
 import { useMotionGame } from '@/lib/stores/useMotionGame';
 
 interface DraggableBlockProps {
@@ -144,43 +144,155 @@ function DraggableBlock({ block, cellSize, gridRows, gridCols, allBlocks, onMove
   );
 }
 
-interface AnimatedBallProps {
-  path: { row: number; col: number }[];
+interface DraggableBallProps {
   cellSize: number;
-  onComplete: () => void;
+  gridRows: number;
+  gridCols: number;
+  allBlocks: BlockType[];
 }
 
-function AnimatedBall({ path, cellSize, onComplete }: AnimatedBallProps) {
-  const [currentIndex, setCurrentIndex] = useState(0);
+function DraggableBall({ cellSize, gridRows, gridCols, allBlocks }: DraggableBallProps) {
+  const { ballRow, ballCol, moveBall, checkWinCondition, nextLevel, getCurrentLevel, gameCompleted } = useMotionGame();
+  const [isDragging, setIsDragging] = useState(false);
+  const [position, setPosition] = useState({ row: ballRow, col: ballCol });
+  const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const ballRef = useRef<HTMLDivElement>(null);
+  const winTimeoutRef = useRef<NodeJS.Timeout | null>(null);
+  const currentLevelIdRef = useRef(getCurrentLevel().id);
 
   useEffect(() => {
-    if (currentIndex >= path.length - 1) {
-      setTimeout(onComplete, 500);
-      return;
+    setPosition({ row: ballRow, col: ballCol });
+    
+    const currentLevelId = getCurrentLevel().id;
+    if (currentLevelId !== currentLevelIdRef.current || gameCompleted) {
+      if (winTimeoutRef.current) {
+        clearTimeout(winTimeoutRef.current);
+        winTimeoutRef.current = null;
+      }
+      currentLevelIdRef.current = currentLevelId;
     }
+  }, [ballRow, ballCol, getCurrentLevel, gameCompleted]);
 
-    const timer = setTimeout(() => {
-      setCurrentIndex(prev => prev + 1);
-    }, 300);
+  const isCellOccupied = (row: number, col: number): boolean => {
+    return allBlocks.some(block => {
+      return (
+        row >= block.row &&
+        row < block.row + block.height &&
+        col >= block.col &&
+        col < block.col + block.width
+      );
+    });
+  };
 
-    return () => clearTimeout(timer);
-  }, [currentIndex, path.length, onComplete]);
+  const isAdjacentCell = (fromRow: number, fromCol: number, toRow: number, toCol: number): boolean => {
+    const rowDiff = Math.abs(toRow - fromRow);
+    const colDiff = Math.abs(toCol - fromCol);
+    return (rowDiff === 1 && colDiff === 0) || (rowDiff === 0 && colDiff === 1);
+  };
 
-  if (path.length === 0) return null;
+  const handleMouseDown = (e: React.MouseEvent) => {
+    setIsDragging(true);
+    const rect = ballRef.current!.getBoundingClientRect();
+    setDragOffset({
+      x: e.clientX - rect.left,
+      y: e.clientY - rect.top,
+    });
+  };
 
-  const currentPos = path[currentIndex];
+  const handleTouchStart = (e: React.TouchEvent) => {
+    setIsDragging(true);
+    const touch = e.touches[0];
+    const rect = ballRef.current!.getBoundingClientRect();
+    setDragOffset({
+      x: touch.clientX - rect.left,
+      y: touch.clientY - rect.top,
+    });
+  };
+
+  useEffect(() => {
+    if (!isDragging) return;
+
+    const handleMove = (clientX: number, clientY: number) => {
+      const gridContainer = ballRef.current?.parentElement;
+      if (!gridContainer) return;
+
+      const gridRect = gridContainer.getBoundingClientRect();
+      const relativeX = clientX - gridRect.left - dragOffset.x - 15;
+      const relativeY = clientY - gridRect.top - dragOffset.y - 15;
+
+      let newCol = Math.round(relativeX / cellSize);
+      let newRow = Math.round(relativeY / cellSize);
+
+      newCol = Math.max(0, Math.min(gridCols - 1, newCol));
+      newRow = Math.max(0, Math.min(gridRows - 1, newRow));
+
+      if (!isCellOccupied(newRow, newCol) && isAdjacentCell(ballRow, ballCol, newRow, newCol)) {
+        setPosition({ row: newRow, col: newCol });
+      }
+    };
+
+    const handleMouseMove = (e: MouseEvent) => {
+      handleMove(e.clientX, e.clientY);
+    };
+
+    const handleTouchMove = (e: TouchEvent) => {
+      const touch = e.touches[0];
+      handleMove(touch.clientX, touch.clientY);
+    };
+
+    const handleEnd = () => {
+      setIsDragging(false);
+      
+      if (!isCellOccupied(position.row, position.col) && isAdjacentCell(ballRow, ballCol, position.row, position.col)) {
+        const currentLevelId = getCurrentLevel().id;
+        moveBall(position.row, position.col);
+        
+        if (winTimeoutRef.current) {
+          clearTimeout(winTimeoutRef.current);
+        }
+        
+        winTimeoutRef.current = setTimeout(() => {
+          if (!gameCompleted && checkWinCondition() && getCurrentLevel().id === currentLevelId) {
+            nextLevel();
+          }
+          winTimeoutRef.current = null;
+        }, 300);
+      } else {
+        setPosition({ row: ballRow, col: ballCol });
+      }
+    };
+
+    document.addEventListener('mousemove', handleMouseMove);
+    document.addEventListener('mouseup', handleEnd);
+    document.addEventListener('touchmove', handleTouchMove);
+    document.addEventListener('touchend', handleEnd);
+
+    return () => {
+      document.removeEventListener('mousemove', handleMouseMove);
+      document.removeEventListener('mouseup', handleEnd);
+      document.removeEventListener('touchmove', handleTouchMove);
+      document.removeEventListener('touchend', handleEnd);
+    };
+  }, [isDragging, position, dragOffset, ballRow, ballCol, gridRows, gridCols, cellSize, allBlocks, moveBall, checkWinCondition, nextLevel]);
 
   return (
     <div
-      className="absolute rounded-full bg-yellow-400 border-4 border-yellow-600 shadow-lg animate-bounce"
+      ref={ballRef}
+      className="absolute rounded-full bg-yellow-400 border-4 border-yellow-600 shadow-lg"
       style={{
-        left: `${currentPos.col * cellSize + cellSize / 2 - 15}px`,
-        top: `${currentPos.row * cellSize + cellSize / 2 - 15}px`,
+        left: `${position.col * cellSize + cellSize / 2 - 15}px`,
+        top: `${position.row * cellSize + cellSize / 2 - 15}px`,
         width: '30px',
         height: '30px',
-        zIndex: 100,
-        transition: 'all 0.3s ease-in-out',
+        zIndex: isDragging ? 1000 : 100,
+        cursor: 'grab',
+        transition: isDragging ? 'none' : 'all 0.2s ease-out',
+        boxShadow: isDragging ? '0 8px 16px rgba(0, 0, 0, 0.3)' : undefined,
+        userSelect: 'none',
+        touchAction: 'none',
       }}
+      onMouseDown={handleMouseDown}
+      onTouchStart={handleTouchStart}
     />
   );
 }
@@ -190,8 +302,6 @@ export function PuzzleGrid() {
   const level = getCurrentLevel();
   const gridRef = useRef<HTMLDivElement>(null);
   const [cellSize, setCellSize] = useState(60);
-  const [showBallAnimation, setShowBallAnimation] = useState(false);
-  const [ballPath, setBallPath] = useState<{ row: number; col: number }[]>([]);
 
   useEffect(() => {
     const updateCellSize = () => {
@@ -214,31 +324,12 @@ export function PuzzleGrid() {
     return () => window.removeEventListener('resize', updateCellSize);
   }, [level.gridCols, level.gridRows]);
 
-  useEffect(() => {
-    setShowBallAnimation(false);
-    setBallPath([]);
-  }, [level.id]);
-
   const handleBlockMove = (blockId: string, newRow: number, newCol: number) => {
     const updatedBlocks = blocks.map(b =>
       b.id === blockId ? { ...b, row: newRow, col: newCol } : b
     );
     updateBlocks(updatedBlocks);
     incrementMoves();
-    
-    const gridState = {
-      rows: level.gridRows,
-      cols: level.gridCols,
-      blocks: updatedBlocks,
-    };
-    const result = isPathClear(gridState, level.ballStart, level.ballEnd);
-    if (result.isReachable) {
-      setBallPath(result.path);
-      setShowBallAnimation(true);
-    } else {
-      setShowBallAnimation(false);
-      setBallPath([]);
-    }
   };
 
   const gridWidth = level.gridCols * cellSize;
@@ -309,13 +400,12 @@ export function PuzzleGrid() {
         />
       ))}
 
-      {showBallAnimation && ballPath.length > 0 && (
-        <AnimatedBall
-          path={ballPath}
-          cellSize={cellSize}
-          onComplete={() => {}}
-        />
-      )}
+      <DraggableBall
+        cellSize={cellSize}
+        gridRows={level.gridRows}
+        gridCols={level.gridCols}
+        allBlocks={blocks}
+      />
     </div>
   );
 }

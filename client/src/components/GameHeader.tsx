@@ -20,7 +20,7 @@ export function GameHeader() {
     <div className="w-full bg-gradient-to-r from-emerald-50 to-teal-50 dark:from-gray-800 dark:to-gray-900 border-b-4 border-emerald-200 dark:border-gray-700 rounded-t-2xl shadow-lg">
       <div className="max-w-6xl mx-auto px-4 py-6">
         <div className="flex items-center justify-between mb-4">
-          <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-100">
+          <h1 className="text-semi bold text-gray-600 dark:text-gray-100 font-medium">
             Motion Challenge
           </h1>
           <button
@@ -38,10 +38,10 @@ export function GameHeader() {
 
         <div className="mb-4">
           <p className="text-sm text-gray-600 dark:text-gray-400 font-medium">
-            Drag blocks AND the ball to reach the end! Auto-advances in 15s per level.
+            Drag blocks AND the ball to reach the end!
           </p>
           <p className="text-xs text-gray-500 dark:text-gray-500">
-            Total game time: 300 seconds (5 minutes)
+            Total game time: 1800 seconds (30 minutes)
           </p>
         </div>
 

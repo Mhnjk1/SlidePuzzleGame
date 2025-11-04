@@ -77,21 +77,6 @@ export function SummaryDashboard() {
               </p>
             </div>
 
-            <div className="bg-gradient-to-br from-purple-50 to-pink-50 dark:from-purple-900/20 dark:to-pink-900/20 p-6 rounded-xl border-2 border-purple-200 dark:border-purple-800">
-              <div className="flex items-center gap-3 mb-2">
-                <Target className="w-8 h-8 text-purple-600 dark:text-purple-400" />
-                <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
-                  Average Moves
-                </h3>
-              </div>
-              <p className="text-4xl font-bold text-purple-600 dark:text-purple-400">
-                {averageMoves}
-              </p>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                Total moves: {totalMoves}
-              </p>
-            </div>
-
             <div className="bg-gradient-to-br from-orange-50 to-yellow-50 dark:from-orange-900/20 dark:to-yellow-900/20 p-6 rounded-xl border-2 border-orange-200 dark:border-orange-800">
               <div className="flex items-center gap-3 mb-2">
                 <Clock className="w-8 h-8 text-orange-600 dark:text-orange-400" />

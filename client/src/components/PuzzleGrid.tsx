@@ -156,9 +156,11 @@ function DraggableBall({ cellSize, gridRows, gridCols, allBlocks }: DraggableBal
   const [isDragging, setIsDragging] = useState(false);
   const [position, setPosition] = useState({ row: ballRow, col: ballCol });
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const [dragDirection, setDragDirection] = useState<'horizontal' | 'vertical' | null>(null);
   const ballRef = useRef<HTMLDivElement>(null);
   const winTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const currentLevelIdRef = useRef(getCurrentLevel().id);
+  const startPosRef = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     setPosition({ row: ballRow, col: ballCol });
@@ -184,10 +186,40 @@ function DraggableBall({ cellSize, gridRows, gridCols, allBlocks }: DraggableBal
     });
   };
 
+  const findValidPosition = (targetRow: number, targetCol: number, direction: 'horizontal' | 'vertical'): { row: number, col: number } => {
+    if (direction === 'horizontal') {
+      const step = targetCol > ballCol ? 1 : -1;
+      let validCol = ballCol;
+      
+      for (let col = ballCol + step; step > 0 ? col <= targetCol : col >= targetCol; col += step) {
+        if (col < 0 || col >= gridCols || isCellOccupied(ballRow, col)) {
+          break;
+        }
+        validCol = col;
+      }
+      
+      return { row: ballRow, col: validCol };
+    } else {
+      const step = targetRow > ballRow ? 1 : -1;
+      let validRow = ballRow;
+      
+      for (let row = ballRow + step; step > 0 ? row <= targetRow : row >= targetRow; row += step) {
+        if (row < 0 || row >= gridRows || isCellOccupied(row, ballCol)) {
+          break;
+        }
+        validRow = row;
+      }
+      
+      return { row: validRow, col: ballCol };
+    }
+  };
+
   const handleMouseDown = (e: React.MouseEvent) => {
     e.preventDefault();
     setIsDragging(true);
+    setDragDirection(null);
     const rect = ballRef.current!.getBoundingClientRect();
+    startPosRef.current = { x: e.clientX, y: e.clientY };
     setDragOffset({
       x: e.clientX - rect.left,
       y: e.clientY - rect.top,
@@ -197,8 +229,10 @@ function DraggableBall({ cellSize, gridRows, gridCols, allBlocks }: DraggableBal
   const handleTouchStart = (e: React.TouchEvent) => {
     e.preventDefault();
     setIsDragging(true);
+    setDragDirection(null);
     const touch = e.touches[0];
     const rect = ballRef.current!.getBoundingClientRect();
+    startPosRef.current = { x: touch.clientX, y: touch.clientY };
     setDragOffset({
       x: touch.clientX - rect.left,
       y: touch.clientY - rect.top,
@@ -212,6 +246,19 @@ function DraggableBall({ cellSize, gridRows, gridCols, allBlocks }: DraggableBal
     if (!gridElement) return;
 
     const handleMove = (clientX: number, clientY: number) => {
+      const deltaX = clientX - startPosRef.current.x;
+      const deltaY = clientY - startPosRef.current.y;
+
+      if (!dragDirection && (Math.abs(deltaX) > 10 || Math.abs(deltaY) > 10)) {
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+          setDragDirection('horizontal');
+        } else {
+          setDragDirection('vertical');
+        }
+      }
+
+      if (!dragDirection) return;
+
       const gridRect = gridElement.getBoundingClientRect();
       const x = clientX - gridRect.left - dragOffset.x;
       const y = clientY - gridRect.top - dragOffset.y;
@@ -219,12 +266,19 @@ function DraggableBall({ cellSize, gridRows, gridCols, allBlocks }: DraggableBal
       const col = Math.round((x - cellSize / 2 + 15) / cellSize);
       const row = Math.round((y - cellSize / 2 + 15) / cellSize);
 
-      const clampedCol = Math.max(0, Math.min(gridCols - 1, col));
-      const clampedRow = Math.max(0, Math.min(gridRows - 1, row));
+      let targetRow = ballRow;
+      let targetCol = ballCol;
 
-      if (!isCellOccupied(clampedRow, clampedCol)) {
-        setPosition({ row: clampedRow, col: clampedCol });
+      if (dragDirection === 'horizontal') {
+        targetCol = Math.max(0, Math.min(gridCols - 1, col));
+        targetRow = ballRow;
+      } else if (dragDirection === 'vertical') {
+        targetRow = Math.max(0, Math.min(gridRows - 1, row));
+        targetCol = ballCol;
       }
+
+      const validPosition = findValidPosition(targetRow, targetCol, dragDirection);
+      setPosition(validPosition);
     };
 
     const handleMouseMove = (e: MouseEvent) => {
@@ -240,6 +294,7 @@ function DraggableBall({ cellSize, gridRows, gridCols, allBlocks }: DraggableBal
 
     const handleEnd = () => {
       setIsDragging(false);
+      setDragDirection(null);
       
       if (position.row !== ballRow || position.col !== ballCol) {
         if (!isCellOccupied(position.row, position.col)) {
@@ -273,7 +328,7 @@ function DraggableBall({ cellSize, gridRows, gridCols, allBlocks }: DraggableBal
       document.removeEventListener('touchmove', handleTouchMove);
       document.removeEventListener('touchend', handleEnd);
     };
-  }, [isDragging, position, dragOffset, ballRow, ballCol, gridRows, gridCols, cellSize, moveBall, checkWinCondition, nextLevel, getCurrentLevel, gameCompleted]);
+  }, [isDragging, position, dragOffset, dragDirection, ballRow, ballCol, gridRows, gridCols, cellSize, moveBall, checkWinCondition, nextLevel, getCurrentLevel, gameCompleted]);
 
   return (
     <div

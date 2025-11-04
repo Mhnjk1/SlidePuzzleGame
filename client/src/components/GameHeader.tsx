@@ -41,10 +41,13 @@ export function GameHeader() {
             <div className="border-l border-gray-300 dark:border-gray-600 pl-3 md:pl-4">
               <div className="space-y-0.5">
                 <p className="text-xs text-gray-600 dark:text-gray-400">
-                  Drag blocks • Slide ball to End
+                  1. Drag blocks to clear path
+                </p>
+                <p className="text-xs text-gray-600 dark:text-gray-400">
+                  2. Drag ball from Start (green) to End (red)
                 </p>
                 <p className="text-xs text-gray-500 dark:text-gray-500">
-                  Target: {level.minMoves} moves
+                  Target: {level.minMoves} moves • {level.gridRows}x{level.gridCols} grid
                 </p>
               </div>
             </div>

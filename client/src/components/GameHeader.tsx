@@ -17,59 +17,68 @@ export function GameHeader() {
   const globalTimerColor = globalTimer <= 30 ? 'text-red-600 dark:text-red-400' : 'text-blue-600 dark:text-blue-400';
 
   return (
-    <div className="w-full">
-      <div className="flex items-center justify-between mb-6">
-        <h1 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
-          Motion Challenge
-        </h1>
-        <button
-          onClick={toggleTheme}
-          className="p-2 rounded-full bg-white dark:bg-gray-700 shadow-md hover:shadow-lg transition-all"
-          aria-label="Toggle theme"
-        >
-          {theme === 'light' ? (
-            <Moon className="w-6 h-6 text-gray-800" />
-          ) : (
-            <Sun className="w-6 h-6 text-yellow-400" />
-          )}
-        </button>
-      </div>
+    <div className="w-full bg-white/90 dark:bg-gray-800/90 backdrop-blur-sm border-b-2 border-gray-200 dark:border-gray-700 shadow-md">
+      <div className="max-w-7xl mx-auto px-4 py-3">
+        <div className="flex flex-col md:flex-row items-start md:items-center justify-between gap-3 md:gap-6">
+          <div className="flex items-center gap-4">
+            <div className="flex items-center gap-3">
+              <h1 className="text-lg md:text-xl font-bold text-gray-800 dark:text-gray-100">
+                Motion Challenge
+              </h1>
+              <button
+                onClick={toggleTheme}
+                className="p-1.5 rounded-full bg-gray-100 dark:bg-gray-700 hover:bg-gray-200 dark:hover:bg-gray-600 transition-all"
+                aria-label="Toggle theme"
+              >
+                {theme === 'light' ? (
+                  <Moon className="w-4 h-4 text-gray-800" />
+                ) : (
+                  <Sun className="w-4 h-4 text-yellow-400" />
+                )}
+              </button>
+            </div>
+            
+            <div className="border-l border-gray-300 dark:border-gray-600 pl-3 md:pl-4">
+              <div className="space-y-0.5">
+                <p className="text-xs text-gray-600 dark:text-gray-400">
+                  Drag blocks • Slide ball to End
+                </p>
+                <p className="text-xs text-gray-500 dark:text-gray-500">
+                  Target: {level.minMoves} moves
+                </p>
+              </div>
+            </div>
+          </div>
 
-      <div className="grid grid-cols-2 gap-4">
-        <div className="bg-white dark:bg-gray-700 px-4 py-4 rounded-xl shadow-md border-2 border-emerald-200 dark:border-gray-600">
-          <p className="text-xs text-gray-500 dark:text-gray-400 font-medium mb-1">
-            LEVEL
-          </p>
-          <p className="text-3xl font-bold text-emerald-600 dark:text-emerald-400">
-            {level.id} / 20
-          </p>
-        </div>
+          <div className="flex flex-wrap items-center gap-2">
+            <div className="bg-emerald-50 dark:bg-emerald-900/20 px-3 py-2 rounded-lg border border-emerald-200 dark:border-emerald-800">
+              <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">LEVEL</p>
+              <p className="text-lg font-bold text-emerald-600 dark:text-emerald-400">
+                {level.id}/20
+              </p>
+            </div>
 
-        <div className="bg-white dark:bg-gray-700 px-4 py-4 rounded-xl shadow-md border-2 border-blue-200 dark:border-gray-600">
-          <p className="text-xs text-gray-500 dark:text-gray-400 font-medium mb-1">
-            LEVEL TIME
-          </p>
-          <p className={`text-3xl font-bold ${levelTimerColor}`}>
-            {levelTimer}s
-          </p>
-        </div>
+            <div className="bg-blue-50 dark:bg-blue-900/20 px-3 py-2 rounded-lg border border-blue-200 dark:border-blue-800">
+              <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">LEVEL TIME</p>
+              <p className={`text-lg font-bold ${levelTimerColor}`}>
+                {levelTimer}s
+              </p>
+            </div>
 
-        <div className="bg-white dark:bg-gray-700 px-4 py-4 rounded-xl shadow-md border-2 border-orange-200 dark:border-gray-600">
-          <p className="text-xs text-gray-500 dark:text-gray-400 font-medium mb-1">
-            TOTAL TIME
-          </p>
-          <p className={`text-3xl font-bold ${globalTimerColor}`}>
-            {formatTime(globalTimer)}
-          </p>
-        </div>
+            <div className="bg-orange-50 dark:bg-orange-900/20 px-3 py-2 rounded-lg border border-orange-200 dark:border-orange-800">
+              <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">TOTAL</p>
+              <p className={`text-lg font-bold ${globalTimerColor}`}>
+                {formatTime(globalTimer)}
+              </p>
+            </div>
 
-        <div className="bg-white dark:bg-gray-700 px-4 py-4 rounded-xl shadow-md border-2 border-purple-200 dark:border-gray-600">
-          <p className="text-xs text-gray-500 dark:text-gray-400 font-medium mb-1">
-            MOVES
-          </p>
-          <p className="text-3xl font-bold text-purple-600 dark:text-purple-400">
-            {moves}
-          </p>
+            <div className="bg-purple-50 dark:bg-purple-900/20 px-3 py-2 rounded-lg border border-purple-200 dark:border-purple-800">
+              <p className="text-xs text-gray-500 dark:text-gray-400 font-medium">MOVES</p>
+              <p className="text-lg font-bold text-purple-600 dark:text-purple-400">
+                {moves}
+              </p>
+            </div>
+          </div>
         </div>
       </div>
     </div>

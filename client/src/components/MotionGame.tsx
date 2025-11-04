@@ -36,18 +36,11 @@ export function MotionGame() {
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-blue-900 dark:to-purple-900">
-      <div className="flex h-screen">
-        <div className="w-1/2 p-6 flex flex-col">
-          <GameHeader />
-          <div className="mt-6">
-            <GameControls />
-          </div>
-        </div>
-
-        <div className="w-1/2 flex items-center justify-center p-6">
-          <PuzzleGrid />
-        </div>
+    <div className="min-h-screen bg-gradient-to-br from-gray-50 via-blue-50 to-purple-50 dark:from-gray-900 dark:via-blue-900 dark:to-purple-900 flex flex-col">
+      <GameHeader />
+      
+      <div className="flex-1 flex items-center justify-center px-4 py-4">
+        <PuzzleGrid />
       </div>
 
       {showMistakeReview && <MistakeReview />}

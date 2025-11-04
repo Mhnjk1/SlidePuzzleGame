@@ -363,13 +363,13 @@ export function PuzzleGrid() {
       const container = gridRef.current.parentElement;
       if (!container) return;
 
-      const maxWidth = Math.min(container.clientWidth - 40, 600);
-      const maxHeight = Math.min(container.clientHeight - 40, 600);
+      const maxWidth = container.clientWidth - 40;
+      const maxHeight = container.clientHeight - 40;
       
       const cellWidth = Math.floor(maxWidth / level.gridCols);
       const cellHeight = Math.floor(maxHeight / level.gridRows);
       
-      setCellSize(Math.min(cellWidth, cellHeight, 80));
+      setCellSize(Math.min(cellWidth, cellHeight, 70));
     };
 
     updateCellSize();

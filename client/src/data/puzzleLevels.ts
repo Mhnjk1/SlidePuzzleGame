@@ -29,7 +29,9 @@ export const puzzleLevels: PuzzleLevel[] = [
     ballEnd: { row: 2, col: 4 },
     blocks: [
       { id: 'blue1', row: 1, col: 1, width: 1, height: 2, color: '#2196F3', orientation: 'vertical', movable: true },
-      { id: 'green1', row: 1, col: 2, width: 2, height: 1, color: '#4CAF50', orientation: 'horizontal', movable: true },
+      { id: 'green1', row: 1, col: 3, width: 1, height: 1, color: '#4CAF50', orientation: 'horizontal', movable: true },
+      { id: 'gray1', row: 0, col: 4, width: 1, height: 1, color: '#BDBDBD', orientation: 'horizontal', movable: false },
+      { id: 'gray2', row: 2, col: 3, width: 1, height: 1, color: '#BDBDBD', orientation: 'horizontal', movable: false },
     ]
   },
   {
@@ -37,12 +39,13 @@ export const puzzleLevels: PuzzleLevel[] = [
     gridRows: 3,
     gridCols: 5,
     minMoves: 3,
-    ballStart: { row: 2, col: 0 },
+    ballStart: { row: 1, col: 0 },
     ballEnd: { row: 0, col: 4 },
     blocks: [
       { id: 'orange1', row: 0, col: 1, width: 1, height: 2, color: '#FF9800', orientation: 'vertical', movable: true },
       { id: 'blue1', row: 1, col: 2, width: 1, height: 2, color: '#2196F3', orientation: 'vertical', movable: true },
       { id: 'gray1', row: 0, col: 3, width: 1, height: 1, color: '#BDBDBD', orientation: 'horizontal', movable: false },
+      { id: 'gray2', row: 2, col: 3, width: 1, height: 1, color: '#BDBDBD', orientation: 'horizontal', movable: false }
     ]
   },
   {
@@ -53,9 +56,12 @@ export const puzzleLevels: PuzzleLevel[] = [
     ballStart: { row: 3, col: 0 },
     ballEnd: { row: 0, col: 4 },
     blocks: [
-      { id: 'orange1', row: 0, col: 1, width: 1, height: 3, color: '#FF9800', orientation: 'vertical', movable: true },
-      { id: 'green1', row: 1, col: 2, width: 2, height: 1, color: '#4CAF50', orientation: 'horizontal', movable: true },
+      { id: 'orange1', row: 0, col: 1, width: 1, height: 2, color: '#FF9800', orientation: 'vertical', movable: true },
+      { id: 'green1', row: 1, col: 3, width: 1, height: 1, color: '#4CAF50', orientation: 'horizontal', movable: true },
       { id: 'purple1', row: 2, col: 3, width: 1, height: 2, color: '#9C27B0', orientation: 'vertical', movable: true },
+      { id: 'gray1', row: 0, col: 3, width: 1, height: 1, color: '#BDBDBD', orientation: 'horizontal', movable: false },
+      { id: 'gray2', row: 3, col: 3, width: 1, height: 1, color: '#BDBDBD', orientation: 'horizontal', movable: false },
+      { id: 'gray3', row: 2, col: 2, width: 1, height: 1, color: '#BDBDBD', orientation: 'horizontal', movable: false }
     ]
   },
   {
@@ -70,6 +76,8 @@ export const puzzleLevels: PuzzleLevel[] = [
       { id: 'orange1', row: 1, col: 3, width: 1, height: 3, color: '#FF9800', orientation: 'vertical', movable: true },
       { id: 'green1', row: 2, col: 4, width: 2, height: 1, color: '#4CAF50', orientation: 'horizontal', movable: true },
       { id: 'gray1', row: 0, col: 2, width: 1, height: 1, color: '#BDBDBD', orientation: 'horizontal', movable: false },
+      { id: 'gray2', row: 3, col: 0, width: 1, height: 1, color: '#BDBDBD', orientation: 'horizontal', movable: false },
+      { id: 'gray3', row: 3, col: 5, width: 1, height: 1, color: '#BDBDBD', orientation: 'horizontal', movable: false }
     ]
   },
   {
@@ -77,14 +85,15 @@ export const puzzleLevels: PuzzleLevel[] = [
     gridRows: 5,
     gridCols: 5,
     minMoves: 6,
-    ballStart: { row: 4, col: 0 },
+    ballStart: { row: 4, col: 4 },
     ballEnd: { row: 0, col: 4 },
     blocks: [
-      { id: 'orange1', row: 0, col: 1, width: 1, height: 2, color: '#FF9800', orientation: 'vertical', movable: true },
+      { id: 'orange1', row: 0, col: 1, width: 1, height: 3, color: '#FF9800', orientation: 'vertical', movable: true },
       { id: 'blue1', row: 2, col: 2, width: 1, height: 2, color: '#2196F3', orientation: 'vertical', movable: true },
       { id: 'green1', row: 1, col: 3, width: 2, height: 1, color: '#4CAF50', orientation: 'horizontal', movable: true },
-      { id: 'purple1', row: 3, col: 3, width: 1, height: 2, color: '#9C27B0', orientation: 'vertical', movable: true },
-      { id: 'gray1', row: 1, col: 1, width: 1, height: 1, color: '#BDBDBD', orientation: 'horizontal', movable: false },
+      { id: 'purple1', row: 2, col: 3, width: 1, height: 2, color: '#9C27B0', orientation: 'vertical', movable: true },
+      { id: 'gray1', row: 1, col: 3, width: 2, height: 1, color: '#BDBDBD', orientation: 'horizontal', movable: false },
+      { id: 'gray2', row: 4, col: 2, width: 1, height: 1, color: '#BDBDBD', orientation: 'horizontal', movable: false }
     ]
   },
   {
@@ -101,6 +110,7 @@ export const puzzleLevels: PuzzleLevel[] = [
       { id: 'purple1', row: 3, col: 2, width: 1, height: 2, color: '#9C27B0', orientation: 'vertical', movable: true },
       { id: 'blue2', row: 2, col: 3, width: 1, height: 2, color: '#2196F3', orientation: 'vertical', movable: true },
       { id: 'gray1', row: 4, col: 1, width: 1, height: 1, color: '#BDBDBD', orientation: 'horizontal', movable: false },
+      { id: 'gray1', row: 1, col: 3, width: 1, height: 1, color: '#BDBDBD', orientation: 'horizontal', movable: false }
     ]
   },
   {

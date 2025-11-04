@@ -156,9 +156,11 @@ function DraggableBall({ cellSize, gridRows, gridCols, allBlocks }: DraggableBal
   const [isDragging, setIsDragging] = useState(false);
   const [position, setPosition] = useState({ row: ballRow, col: ballCol });
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
+  const [dragDirection, setDragDirection] = useState<'horizontal' | 'vertical' | null>(null);
   const ballRef = useRef<HTMLDivElement>(null);
   const winTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const currentLevelIdRef = useRef(getCurrentLevel().id);
+  const startPosRef = useRef({ x: 0, y: 0 });
 
   useEffect(() => {
     setPosition({ row: ballRow, col: ballCol });
@@ -184,15 +186,49 @@ function DraggableBall({ cellSize, gridRows, gridCols, allBlocks }: DraggableBal
     });
   };
 
-  const isAdjacentCell = (fromRow: number, fromCol: number, toRow: number, toCol: number): boolean => {
-    const rowDiff = Math.abs(toRow - fromRow);
-    const colDiff = Math.abs(toCol - fromCol);
-    return (rowDiff === 1 && colDiff === 0) || (rowDiff === 0 && colDiff === 1);
+  const findFarthestPosition = (startRow: number, startCol: number, direction: 'up' | 'down' | 'left' | 'right'): { row: number, col: number } => {
+    let currentRow = startRow;
+    let currentCol = startCol;
+
+    while (true) {
+      let nextRow = currentRow;
+      let nextCol = currentCol;
+
+      switch (direction) {
+        case 'up':
+          nextRow = currentRow - 1;
+          break;
+        case 'down':
+          nextRow = currentRow + 1;
+          break;
+        case 'left':
+          nextCol = currentCol - 1;
+          break;
+        case 'right':
+          nextCol = currentCol + 1;
+          break;
+      }
+
+      if (nextRow < 0 || nextRow >= gridRows || nextCol < 0 || nextCol >= gridCols) {
+        break;
+      }
+
+      if (isCellOccupied(nextRow, nextCol)) {
+        break;
+      }
+
+      currentRow = nextRow;
+      currentCol = nextCol;
+    }
+
+    return { row: currentRow, col: currentCol };
   };
 
   const handleMouseDown = (e: React.MouseEvent) => {
     setIsDragging(true);
+    setDragDirection(null);
     const rect = ballRef.current!.getBoundingClientRect();
+    startPosRef.current = { x: e.clientX, y: e.clientY };
     setDragOffset({
       x: e.clientX - rect.left,
       y: e.clientY - rect.top,
@@ -201,8 +237,10 @@ function DraggableBall({ cellSize, gridRows, gridCols, allBlocks }: DraggableBal
 
   const handleTouchStart = (e: React.TouchEvent) => {
     setIsDragging(true);
+    setDragDirection(null);
     const touch = e.touches[0];
     const rect = ballRef.current!.getBoundingClientRect();
+    startPosRef.current = { x: touch.clientX, y: touch.clientY };
     setDragOffset({
       x: touch.clientX - rect.left,
       y: touch.clientY - rect.top,
@@ -213,21 +251,33 @@ function DraggableBall({ cellSize, gridRows, gridCols, allBlocks }: DraggableBal
     if (!isDragging) return;
 
     const handleMove = (clientX: number, clientY: number) => {
-      const gridContainer = ballRef.current?.parentElement;
-      if (!gridContainer) return;
+      const deltaX = clientX - startPosRef.current.x;
+      const deltaY = clientY - startPosRef.current.y;
 
-      const gridRect = gridContainer.getBoundingClientRect();
-      const relativeX = clientX - gridRect.left - dragOffset.x - 15;
-      const relativeY = clientY - gridRect.top - dragOffset.y - 15;
+      if (!dragDirection && (Math.abs(deltaX) > 5 || Math.abs(deltaY) > 5)) {
+        if (Math.abs(deltaX) > Math.abs(deltaY)) {
+          setDragDirection('horizontal');
+        } else {
+          setDragDirection('vertical');
+        }
+      }
 
-      let newCol = Math.round(relativeX / cellSize);
-      let newRow = Math.round(relativeY / cellSize);
-
-      newCol = Math.max(0, Math.min(gridCols - 1, newCol));
-      newRow = Math.max(0, Math.min(gridRows - 1, newRow));
-
-      if (!isCellOccupied(newRow, newCol) && isAdjacentCell(ballRow, ballCol, newRow, newCol)) {
-        setPosition({ row: newRow, col: newCol });
+      if (dragDirection === 'horizontal') {
+        if (deltaX > 20) {
+          const newPos = findFarthestPosition(ballRow, ballCol, 'right');
+          setPosition(newPos);
+        } else if (deltaX < -20) {
+          const newPos = findFarthestPosition(ballRow, ballCol, 'left');
+          setPosition(newPos);
+        }
+      } else if (dragDirection === 'vertical') {
+        if (deltaY > 20) {
+          const newPos = findFarthestPosition(ballRow, ballCol, 'down');
+          setPosition(newPos);
+        } else if (deltaY < -20) {
+          const newPos = findFarthestPosition(ballRow, ballCol, 'up');
+          setPosition(newPos);
+        }
       }
     };
 
@@ -242,23 +292,26 @@ function DraggableBall({ cellSize, gridRows, gridCols, allBlocks }: DraggableBal
 
     const handleEnd = () => {
       setIsDragging(false);
+      setDragDirection(null);
       
-      if (!isCellOccupied(position.row, position.col) && isAdjacentCell(ballRow, ballCol, position.row, position.col)) {
-        const currentLevelId = getCurrentLevel().id;
-        moveBall(position.row, position.col);
-        
-        if (winTimeoutRef.current) {
-          clearTimeout(winTimeoutRef.current);
-        }
-        
-        winTimeoutRef.current = setTimeout(() => {
-          if (!gameCompleted && checkWinCondition() && getCurrentLevel().id === currentLevelId) {
-            nextLevel();
+      if (position.row !== ballRow || position.col !== ballCol) {
+        if (!isCellOccupied(position.row, position.col)) {
+          const currentLevelId = getCurrentLevel().id;
+          moveBall(position.row, position.col);
+          
+          if (winTimeoutRef.current) {
+            clearTimeout(winTimeoutRef.current);
           }
-          winTimeoutRef.current = null;
-        }, 300);
-      } else {
-        setPosition({ row: ballRow, col: ballCol });
+          
+          winTimeoutRef.current = setTimeout(() => {
+            if (!gameCompleted && checkWinCondition() && getCurrentLevel().id === currentLevelId) {
+              nextLevel();
+            }
+            winTimeoutRef.current = null;
+          }, 300);
+        } else {
+          setPosition({ row: ballRow, col: ballCol });
+        }
       }
     };
 
@@ -273,7 +326,7 @@ function DraggableBall({ cellSize, gridRows, gridCols, allBlocks }: DraggableBal
       document.removeEventListener('touchmove', handleTouchMove);
       document.removeEventListener('touchend', handleEnd);
     };
-  }, [isDragging, position, dragOffset, ballRow, ballCol, gridRows, gridCols, cellSize, allBlocks, moveBall, checkWinCondition, nextLevel]);
+  }, [isDragging, position, dragOffset, dragDirection, ballRow, ballCol, gridRows, gridCols, cellSize, allBlocks, moveBall, checkWinCondition, nextLevel, getCurrentLevel, gameCompleted]);
 
   return (
     <div

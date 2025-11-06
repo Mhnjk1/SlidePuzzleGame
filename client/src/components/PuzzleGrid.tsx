@@ -104,7 +104,7 @@ function DraggableBlock({ block, cellSize, gridRows, gridCols, allBlocks, onMove
       document.removeEventListener('touchmove', handleTouchMove);
       document.removeEventListener('touchend', handleEnd);
     };
-  }, [isDragging, position, dragOffset, block, allBlocks, gridRows, gridCols, cellSize, onMove]);
+  }, [isDragging, position, dragOffset, block, allBlocks, gridRows, gridCols, cellSize, onMove, ballRow, ballCol]);
 
   const style: React.CSSProperties = {
     position: 'absolute',
@@ -153,7 +153,7 @@ interface DraggableBallProps {
 }
 
 function DraggableBall({ cellSize, gridRows, gridCols, allBlocks }: DraggableBallProps) {
-  const { ballRow, ballCol, moveBall, checkWinCondition, nextLevel, getCurrentLevel, gameCompleted } = useMotionGame();
+  const { ballRow, ballCol, moveBall, checkWinCondition, nextLevel, getCurrentLevel, gameCompleted, incrementMoves } = useMotionGame();
   const [isDragging, setIsDragging] = useState(false);
   const [position, setPosition] = useState({ row: ballRow, col: ballCol });
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
@@ -299,6 +299,12 @@ function DraggableBall({ cellSize, gridRows, gridCols, allBlocks }: DraggableBal
       
       if (position.row !== ballRow || position.col !== ballCol) {
         if (!isCellOccupied(position.row, position.col)) {
+          const cellsMoved = Math.abs(position.row - ballRow) + Math.abs(position.col - ballCol);
+          
+          for (let i = 0; i < cellsMoved; i++) {
+            incrementMoves();
+          }
+          
           const currentLevelId = getCurrentLevel().id;
           moveBall(position.row, position.col);
           
@@ -329,7 +335,7 @@ function DraggableBall({ cellSize, gridRows, gridCols, allBlocks }: DraggableBal
       document.removeEventListener('touchmove', handleTouchMove);
       document.removeEventListener('touchend', handleEnd);
     };
-  }, [isDragging, position, dragOffset, dragDirection, ballRow, ballCol, gridRows, gridCols, cellSize, moveBall, checkWinCondition, nextLevel, getCurrentLevel, gameCompleted]);
+  }, [isDragging, position, dragOffset, dragDirection, ballRow, ballCol, gridRows, gridCols, cellSize, moveBall, checkWinCondition, nextLevel, getCurrentLevel, gameCompleted, incrementMoves]);
 
   return (
     <div

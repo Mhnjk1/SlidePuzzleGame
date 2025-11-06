@@ -7,27 +7,25 @@ export function SummaryDashboard() {
 
   const correctAttempts = levelAttempts.filter(a => a.isCorrect).length;
   const incorrectAttempts = levelAttempts.filter(a => !a.isCorrect).length;
-  const totalMoves = levelAttempts.reduce((sum, a) => sum + a.moves, 0);
-  const averageMoves = levelAttempts.length > 0 ? (totalMoves / levelAttempts.length).toFixed(1) : '0';
-  const totalTime = levelAttempts.reduce((sum, a) => sum + a.timeTaken, 0);
-
-  const score = levelAttempts.reduce((total, attempt) => {
-    if (!attempt.isCorrect) return total;
-    
+  
+  const correctLevelAttempts = levelAttempts.filter(a => a.isCorrect);
+  const totalMoves = correctLevelAttempts.reduce((sum, a) => sum + a.moves, 0);
+  const totalTime = correctLevelAttempts.reduce((sum, a) => sum + a.timeTaken, 0);
+  
+  const totalOptimalMoves = correctLevelAttempts.reduce((sum, attempt) => {
     const level = puzzleLevels.find(l => l.id === attempt.levelId);
-    if (!level) return total;
-
-    const efficiency = level.minMoves / attempt.moves;
-    const timeBonus = attempt.timeTaken < 30 ? 1.2 : attempt.timeTaken < 60 ? 1.1 : 1.0;
-    const points = Math.round(efficiency * 100 * timeBonus);
-    
-    return total + points;
+    return sum + (level?.minMoves || 0);
   }, 0);
-
-  const perfectSolutions = levelAttempts.filter(a => {
-    const level = puzzleLevels.find(l => l.id === a.levelId);
-    return a.isCorrect && level && a.moves === level.minMoves;
-  }).length;
+  
+  const baseScore = 200;
+  const movePenalty = 0.3;
+  const timePenalty = 0.02;
+  
+  const extraMoves = Math.max(0, totalMoves - totalOptimalMoves);
+  const movePenaltyPoints = movePenalty * extraMoves;
+  const timePenaltyPoints = timePenalty * totalTime;
+  
+  const score = Math.max(0, Math.round(baseScore - movePenaltyPoints - timePenaltyPoints));
 
   const fastSolutions = levelAttempts.filter(a => a.isCorrect && a.timeTaken < 10).length;
   
@@ -65,7 +63,7 @@ export function SummaryDashboard() {
                 {score}
               </p>
               <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                Based on efficiency & speed
+                Out of 200 points
               </p>
             </div>
 
@@ -95,29 +93,19 @@ export function SummaryDashboard() {
                 {formatTime(totalTime)}
               </p>
               <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                Avg: {formatTime(Math.round(totalTime / levelAttempts.length))} per level
+                Time spent across all levels
               </p>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-8">
             <div className="bg-purple-50 dark:bg-purple-900/20 p-4 rounded-lg border border-purple-200 dark:border-purple-800">
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <TrendingUp className="w-5 h-5 text-purple-600 dark:text-purple-400" />
-                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Avg Moves</span>
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Total Moves</span>
                 </div>
-                <span className="text-2xl font-bold text-purple-600 dark:text-purple-400">{averageMoves}</span>
-              </div>
-            </div>
-
-            <div className="bg-amber-50 dark:bg-amber-900/20 p-4 rounded-lg border border-amber-200 dark:border-amber-800">
-              <div className="flex items-center justify-between">
-                <div className="flex items-center gap-2">
-                  <CheckCircle2 className="w-5 h-5 text-amber-600 dark:text-amber-400" />
-                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Perfect Solutions</span>
-                </div>
-                <span className="text-2xl font-bold text-amber-600 dark:text-amber-400">{perfectSolutions}</span>
+                <span className="text-2xl font-bold text-purple-600 dark:text-purple-400">{totalMoves}</span>
               </div>
             </div>
 

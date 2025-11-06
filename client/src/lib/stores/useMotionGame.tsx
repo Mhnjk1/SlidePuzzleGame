@@ -149,6 +149,9 @@ export const useMotionGame = create<MotionGameState>((set, get) => ({
     
     set({ isTransitioning: true });
     
+    const isCorrect = get().checkWinCondition();
+    get().submitSolution(isCorrect);
+    
     if (state.currentLevelIndex < puzzleLevels.length - 1) {
       const nextIndex = state.currentLevelIndex + 1;
       const level = puzzleLevels[nextIndex];

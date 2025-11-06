@@ -73,10 +73,23 @@ export function checkCollision(
   newCol: number,
   allBlocks: Block[],
   gridRows: number,
-  gridCols: number
+  gridCols: number,
+  ballRow?: number,
+  ballCol?: number
 ): boolean {
   if (newRow < 0 || newCol < 0) return true;
   if (newRow + block.height > gridRows || newCol + block.width > gridCols) return true;
+
+  if (ballRow !== undefined && ballCol !== undefined) {
+    if (
+      ballRow >= newRow &&
+      ballRow < newRow + block.height &&
+      ballCol >= newCol &&
+      ballCol < newCol + block.width
+    ) {
+      return true;
+    }
+  }
 
   const otherBlocks = allBlocks.filter(b => b.id !== block.id);
   

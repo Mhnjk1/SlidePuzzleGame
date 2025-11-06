@@ -13,6 +13,7 @@ interface DraggableBlockProps {
 }
 
 function DraggableBlock({ block, cellSize, gridRows, gridCols, allBlocks, onMove }: DraggableBlockProps) {
+  const { ballRow, ballCol } = useMotionGame();
   const [isDragging, setIsDragging] = useState(false);
   const [position, setPosition] = useState({ row: block.row, col: block.col });
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
@@ -83,7 +84,7 @@ function DraggableBlock({ block, cellSize, gridRows, gridCols, allBlocks, onMove
     const handleEnd = () => {
       setIsDragging(false);
       
-      if (!checkCollision(block, position.row, position.col, allBlocks, gridRows, gridCols)) {
+      if (!checkCollision(block, position.row, position.col, allBlocks, gridRows, gridCols, ballRow, ballCol)) {
         if (position.row !== block.row || position.col !== block.col) {
           onMove(block.id, position.row, position.col);
         }
@@ -380,11 +381,19 @@ export function PuzzleGrid() {
   }, [level.gridCols, level.gridRows]);
 
   const handleBlockMove = (blockId: string, newRow: number, newCol: number) => {
+    const movedBlock = blocks.find(b => b.id === blockId);
+    if (!movedBlock) return;
+    
+    const cellsMoved = Math.abs(newRow - movedBlock.row) + Math.abs(newCol - movedBlock.col);
+    
     const updatedBlocks = blocks.map(b =>
       b.id === blockId ? { ...b, row: newRow, col: newCol } : b
     );
     updateBlocks(updatedBlocks);
-    incrementMoves();
+    
+    for (let i = 0; i < cellsMoved; i++) {
+      incrementMoves();
+    }
   };
 
   const gridWidth = level.gridCols * cellSize;

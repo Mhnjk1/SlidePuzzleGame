@@ -16,6 +16,8 @@ interface MotionGameState {
   timer: number;
   levelTimer: number;
   globalTimer: number;
+  levelStartTime: number;
+  totalTimeSpent: number;
   ballRow: number;
   ballCol: number;
   isPlaying: boolean;
@@ -25,6 +27,7 @@ interface MotionGameState {
   gameCompleted: boolean;
   showSummary: boolean;
   showMistakeReview: boolean;
+
   
   setCurrentLevel: (index: number) => void;
   updateBlocks: (blocks: Block[]) => void;
@@ -54,6 +57,8 @@ export const useMotionGame = create<MotionGameState>((set, get) => ({
   timer: 90,
   levelTimer: 90,
   globalTimer: 1800,
+  levelStartTime: 90,
+  totalTimeSpent: 0,
   ballRow: puzzleLevels[0].ballStart.row,
   ballCol: puzzleLevels[0].ballStart.col,
   isPlaying: false,
@@ -72,6 +77,7 @@ export const useMotionGame = create<MotionGameState>((set, get) => ({
       moves: 0,
       timer: 90,
       levelTimer: 90,
+      levelStartTime: 90,
       ballRow: level.ballStart.row,
       ballCol: level.ballStart.col,
       isPlaying: false,
@@ -129,16 +135,19 @@ export const useMotionGame = create<MotionGameState>((set, get) => ({
     const state = get();
     const level = puzzleLevels[state.currentLevelIndex];
     
+    const timeSpentOnLevel = state.levelStartTime - state.levelTimer;
+    
     const attempt: LevelAttempt = {
       levelId: level.id,
       moves: state.moves,
       isCorrect,
-      timeTaken: 90 - state.timer,
+      timeTaken: timeSpentOnLevel,
       userBlocks: isCorrect ? undefined : [...state.blocks],
     };
 
     set((state) => ({
       levelAttempts: [...state.levelAttempts, attempt],
+      totalTimeSpent: state.totalTimeSpent + timeSpentOnLevel,
       isPaused: true,
     }));
   },
@@ -161,6 +170,7 @@ export const useMotionGame = create<MotionGameState>((set, get) => ({
         moves: 0,
         timer: 90,
         levelTimer: 90,
+        levelStartTime: 90,
         ballRow: level.ballStart.row,
         ballCol: level.ballStart.col,
         isPlaying: true,
@@ -180,6 +190,7 @@ export const useMotionGame = create<MotionGameState>((set, get) => ({
       moves: 0,
       timer: 90,
       levelTimer: 90,
+      levelStartTime: 90,
       ballRow: level.ballStart.row,
       ballCol: level.ballStart.col,
       isPlaying: false,
@@ -196,6 +207,8 @@ export const useMotionGame = create<MotionGameState>((set, get) => ({
       timer: 90,
       levelTimer: 90,
       globalTimer: 1800,
+      levelStartTime: 90,
+      totalTimeSpent: 0,
       ballRow: level.ballStart.row,
       ballCol: level.ballStart.col,
       isPlaying: false,

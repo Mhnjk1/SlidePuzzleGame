@@ -158,14 +158,45 @@ export function MistakeReview() {
                 </div>
 
                 <div className="mt-4 bg-blue-50 dark:bg-blue-900/20 border border-blue-200 dark:border-blue-800 rounded-lg p-4">
-                  <h4 className="font-semibold text-blue-800 dark:text-blue-300 mb-2 flex items-center gap-2">
+                  <h4 className="font-semibold text-blue-800 dark:text-blue-300 mb-3 flex items-center gap-2">
                     <ArrowRight className="w-5 h-5" />
-                    How to Solve
+                    Step-by-Step Solution
                   </h4>
-                  <p className="text-sm text-blue-700 dark:text-blue-300">
-                    Move the blocking pieces out of the way to create a clear path. Focus on moving pieces that are 
-                    directly in the path from Start to End. The optimal solution requires {level.minMoves} moves.
-                  </p>
+                  <div className="space-y-2 text-sm">
+                    <div className="flex items-start gap-2">
+                      <span className="font-bold text-blue-800 dark:text-blue-300 mt-0.5">1.</span>
+                      <p className="text-blue-700 dark:text-blue-300">
+                        <strong>Initial Setup:</strong> The ball starts at row {level.ballStart.row}, column {level.ballStart.col} (green position marked "S"). 
+                        The goal is to reach row {level.ballEnd.row}, column {level.ballEnd.col} (red position marked "E").
+                      </p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="font-bold text-blue-800 dark:text-blue-300 mt-0.5">2.</span>
+                      <p className="text-blue-700 dark:text-blue-300">
+                        <strong>Clear the Path:</strong> Look at the optimal solution grid (right side) where the green-highlighted cells show the correct path. 
+                        Any blocks blocking these cells must be moved out of the way.
+                      </p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="font-bold text-blue-800 dark:text-blue-300 mt-0.5">3.</span>
+                      <p className="text-blue-700 dark:text-blue-300">
+                        <strong>Move Strategy:</strong> {blockingReason} Drag each blocking block away from the path. 
+                        Blocks can slide multiple cells in one move - count each cell traveled as one move.
+                      </p>
+                    </div>
+                    <div className="flex items-start gap-2">
+                      <span className="font-bold text-blue-800 dark:text-blue-300 mt-0.5">4.</span>
+                      <p className="text-blue-700 dark:text-blue-300">
+                        <strong>Complete the Puzzle:</strong> Once the path is clear (no blocks on green cells), drag the ball from Start (S) to End (E) following the highlighted path. 
+                        The optimal solution uses exactly {level.minMoves} total moves.
+                      </p>
+                    </div>
+                    <div className="mt-3 p-2 bg-blue-100 dark:bg-blue-900/40 rounded">
+                      <p className="text-xs text-blue-800 dark:text-blue-200">
+                        <strong>Tip:</strong> Each cell a block or ball moves counts as one move. Planning your block movements carefully helps achieve the minimum move count.
+                      </p>
+                    </div>
+                  </div>
                 </div>
               </div>
             );

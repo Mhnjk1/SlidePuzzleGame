@@ -714,7 +714,7 @@ export const puzzleLevels: PuzzleLevel[] = [
     id: 10,
     gridRows: 7,
     gridCols: 6,
-    minMoves: 16,
+    minMoves: 15,
     ballStart: { row: 6, col: 5 },
     ballEnd: { row: 0, col: 0 },
     blocks: [
@@ -1054,7 +1054,7 @@ export const puzzleLevels: PuzzleLevel[] = [
     id: 13,
     gridRows: 7,
     gridCols: 7,
-    minMoves: 20,
+    minMoves: 19,
     ballStart: { row: 4, col: 6 },
     ballEnd: { row: 0, col: 0 },
     blocks: [
@@ -1152,6 +1152,16 @@ export const puzzleLevels: PuzzleLevel[] = [
         id: "gray3",
         row: 1,
         col: 4,
+        width: 1,
+        height: 1,
+        color: "#BDBDBD",
+        orientation: "horizontal",
+        movable: false,
+      },
+      {
+        id: "gray4",
+        row: 6,
+        col: 3,
         width: 1,
         height: 1,
         color: "#BDBDBD",
@@ -1294,7 +1304,7 @@ export const puzzleLevels: PuzzleLevel[] = [
     id: 15,
     gridRows: 7,
     gridCols: 7,
-    minMoves: 14,
+    minMoves: 15,
     ballStart: { row: 4, col: 0 },
     ballEnd: { row: 3, col: 6 },
     blocks: [
@@ -1994,7 +2004,7 @@ export const puzzleLevels: PuzzleLevel[] = [
     id: 20,
     gridRows: 7,
     gridCols: 7,
-    minMoves: 22,
+    minMoves: 21,
     ballStart: { row: 3, col: 0 },
     ballEnd: { row: 3, col: 6 },
     blocks: [

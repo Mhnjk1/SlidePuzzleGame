@@ -18,8 +18,8 @@ export function SummaryDashboard() {
   }, 0);
   
   const baseScore = 200;
-  const movePenalty = 0.3;
-  const timePenalty = 0.02;
+  const movePenalty = 3;
+  const timePenalty = 2;
   
   const extraMoves = Math.max(0, totalMoves - totalOptimalMoves);
   const movePenaltyPoints = movePenalty * extraMoves;
@@ -52,22 +52,22 @@ export function SummaryDashboard() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-6 rounded-xl border-2 border-green-200 dark:border-green-800">
+            <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-6 rounded-l border-2 border-green-200 dark:border-green-600">
               <div className="flex items-center gap-3 mb-2">
-                <Award className="w-8 h-8 text-green-600 dark:text-green-400" />
-                <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
+                <Award className="w-8 h-8 text-green-500 dark:text-green-300" />
+                <h3 className="text-lg font-semibold text-gray-600 dark:text-gray-100">
                   Total Score
                 </h3>
               </div>
-              <p className="text-4xl font-bold text-green-600 dark:text-green-400">
+              <p className="text-3xl font-bold text-green-500 dark:text-green-300">
                 {score}
               </p>
-              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
+              <p className="text-sm text-gray-500 dark:text-gray-300 mt-1">
                 Out of 200 points
               </p>
             </div>
 
-            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-6 rounded-xl border-2 border-blue-200 dark:border-blue-800">
+            <div className="bg-gradient-to-br from-blue-50 to-indigo-50 dark:from-blue-900/20 dark:to-indigo-900/20 p-6 rounded-xl border-2 border-blue-200 dark:border-blue-600">
               <div className="flex items-center gap-3 mb-2">
                 <Target className="w-8 h-8 text-blue-600 dark:text-blue-400" />
                 <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
@@ -103,7 +103,7 @@ export function SummaryDashboard() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <TrendingUp className="w-5 h-5 text-purple-600 dark:text-purple-400" />
-                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Total Moves</span>
+                  <span className="text-sm font-medium text-gray-600 dark:text-gray-300">Total Moves</span>
                 </div>
                 <span className="text-2xl font-bold text-purple-600 dark:text-purple-400">{totalMoves}</span>
               </div>

@@ -48,13 +48,16 @@ export function GameHeader() {
               <div className="space-y-0.5">
                 <p className="text-m text-black-600 dark:text-black-400">
                   1. Blocks can moved horizontally or vertically to clear the
-                  path
+                  path.
                 </p>
                 <p className="text-m text-black-600 dark:text-black-400">
-                  2. Drag ball from Start(S)(green) to End(E)(red)
+                  2. Drag Yellow Ball from Start(S)(green) to End(E)(red).
                 </p>
                 <p className="text-m text-black-500 dark:text-black-500">
                   3. Complete the puzzle before the timer runs out!
+                </p>
+                <p className="text-m text-black-500 dark:text-black-500">
+                  4. Lines on block indicate movable blocks.
                 </p>
                 <p className="text-m font-bold text-black-500 dark:text-black-500">
                   Target Moves: {level.minMoves}

@@ -814,7 +814,7 @@ export const puzzleLevels: PuzzleLevel[] = [
     id: 11,
     gridRows: 6,
     gridCols: 7,
-    minMoves: 12,
+    minMoves: 15,
     ballStart: { row: 3, col: 0 },
     ballEnd: { row: 2, col: 6 },
     blocks: [
@@ -934,7 +934,7 @@ export const puzzleLevels: PuzzleLevel[] = [
     id: 12,
     gridRows: 7,
     gridCols: 6,
-    minMoves: 13,
+    minMoves: 16,
     ballStart: { row: 0, col: 5 },
     ballEnd: { row: 6, col: 0 },
     blocks: [
@@ -1054,7 +1054,7 @@ export const puzzleLevels: PuzzleLevel[] = [
     id: 13,
     gridRows: 7,
     gridCols: 7,
-    minMoves: 20,
+    minMoves: 19,
     ballStart: { row: 4, col: 6 },
     ballEnd: { row: 0, col: 0 },
     blocks: [
@@ -1174,7 +1174,7 @@ export const puzzleLevels: PuzzleLevel[] = [
     id: 14,
     gridRows: 7,
     gridCols: 7,
-    minMoves: 18,
+    minMoves: 20,
     ballStart: { row: 1, col: 0 },
     ballEnd: { row: 6, col: 6 },
     blocks: [
@@ -2004,7 +2004,7 @@ export const puzzleLevels: PuzzleLevel[] = [
     id: 20,
     gridRows: 7,
     gridCols: 7,
-    minMoves: 16,
+    minMoves: 12,
     ballStart: { row: 3, col: 0 },
     ballEnd: { row: 3, col: 6 },
     blocks: [

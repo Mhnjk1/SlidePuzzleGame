@@ -49,7 +49,7 @@ export function SummaryDashboard() {
   }).length;
 
   const incorrectLevels = levelAttempts.filter((a) => !a.isCorrect);
-  
+
   const exceededTargetLevels = levelAttempts.filter((a) => {
     if (!a.isCorrect) return false;
     const level = puzzleLevels.find((l) => l.id === a.levelId);
@@ -148,7 +148,7 @@ export function SummaryDashboard() {
                 <div className="flex items-center gap-2">
                   <Zap className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />
                   <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
-                    Speed Wins
+                    Speed Wins (Levels completed in under 10 seconds)
                   </span>
                 </div>
                 <span className="text-2xl font-bold text-cyan-600 dark:text-cyan-400">
@@ -168,11 +168,17 @@ export function SummaryDashboard() {
               </div>
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
                 {incorrectLevels.length > 0 && (
-                  <span>{incorrectLevels.length} incomplete level{incorrectLevels.length !== 1 ? "s" : ""}</span>
+                  <span>
+                    {incorrectLevels.length} incomplete level
+                    {incorrectLevels.length !== 1 ? "s" : ""}
+                  </span>
                 )}
-                {incorrectLevels.length > 0 && exceededTargetLevels.length > 0 && <span>, </span>}
+                {incorrectLevels.length > 0 &&
+                  exceededTargetLevels.length > 0 && <span>, </span>}
                 {exceededTargetLevels.length > 0 && (
-                  <span>{exceededTargetLevels.length} exceeded target moves</span>
+                  <span>
+                    {exceededTargetLevels.length} exceeded target moves
+                  </span>
                 )}
               </p>
               <div className="flex flex-wrap gap-2">
@@ -189,7 +195,12 @@ export function SummaryDashboard() {
                     key={`exceeded-${attempt.levelId}`}
                     className="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-300 rounded-full text-sm font-medium"
                   >
-                    Level {attempt.levelId} ({attempt.moves}/{puzzleLevels.find(l => l.id === attempt.levelId)?.minMoves})
+                    Level {attempt.levelId} ({attempt.moves}/
+                    {
+                      puzzleLevels.find((l) => l.id === attempt.levelId)
+                        ?.minMoves
+                    }
+                    )
                   </span>
                 ))}
               </div>

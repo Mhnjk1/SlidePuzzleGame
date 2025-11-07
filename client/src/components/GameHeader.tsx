@@ -56,7 +56,7 @@ export function GameHeader() {
                 <p className="text-m text-black-500 dark:text-black-500">
                   Complete the puzzle before the timer runs out!
                 </p>
-                <p className="text-m text-black-500 dark:text-black-500">
+                <p className="text-m font-bold text-black-500 dark:text-black-500">
                   Target Moves: {level.minMoves}
                 </p>
               </div>

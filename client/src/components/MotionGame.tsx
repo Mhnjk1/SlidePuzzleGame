@@ -2,7 +2,6 @@ import { useEffect } from "react";
 import { GameHeader } from "./GameHeader";
 import { PuzzleGrid } from "./PuzzleGrid";
 import { GameControls } from "./GameControls";
-
 import { SummaryDashboard } from "./SummaryDashboard";
 import { MistakeReview } from "./MistakeReview";
 import { useMotionGame } from "@/lib/stores/useMotionGame";

@@ -42,11 +42,21 @@ export function SummaryDashboard() {
     Math.round(baseScore - movePenaltyPoints - timePenaltyPoints),
   );
 
-  const fastSolutions = levelAttempts.filter(
-    (a) => a.isCorrect && a.timeTaken < 10,
-  ).length;
+  const fastSolutions = levelAttempts.filter((a) => {
+    if (!a.isCorrect) return false;
+    const level = puzzleLevels.find((l) => l.id === a.levelId);
+    return level && a.moves <= level.minMoves;
+  }).length;
 
   const incorrectLevels = levelAttempts.filter((a) => !a.isCorrect);
+  
+  const exceededTargetLevels = levelAttempts.filter((a) => {
+    if (!a.isCorrect) return false;
+    const level = puzzleLevels.find((l) => l.id === a.levelId);
+    return level && a.moves > level.minMoves;
+  });
+
+  const reviewableLevels = [...incorrectLevels, ...exceededTargetLevels];
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -128,7 +138,7 @@ export function SummaryDashboard() {
                   </span>
                 </div>
                 <span className="text-2xl font-bold text-purple-600 dark:text-purple-400">
-                  {totalMoves}
+                  {totalMoves} / {totalOptimalMoves}
                 </span>
               </div>
             </div>
@@ -148,26 +158,38 @@ export function SummaryDashboard() {
             </div>
           </div>
 
-          {incorrectLevels.length > 0 && (
-            <div className="mb-8 bg-red-50 dark:bg-red-900/20 p-6 rounded-xl border-2 border-red-200 dark:border-red-800">
+          {reviewableLevels.length > 0 && (
+            <div className="mb-8 bg-gradient-to-br from-red-50 to-yellow-50 dark:from-red-900/20 dark:to-yellow-900/20 p-6 rounded-xl border-2 border-orange-200 dark:border-orange-800">
               <div className="flex items-center gap-3 mb-3">
-                <XCircle className="w-6 h-6 text-red-600 dark:text-red-400" />
+                <XCircle className="w-6 h-6 text-orange-600 dark:text-orange-400" />
                 <h3 className="text-lg font-semibold text-gray-800 dark:text-gray-100">
-                  Incomplete Levels
+                  Review Items
                 </h3>
               </div>
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                You didn't complete {incorrectLevels.length} level
-                {incorrectLevels.length !== 1 ? "s" : ""} before time ran out.
-                Review them to improve your skills!
+                {incorrectLevels.length > 0 && (
+                  <span>{incorrectLevels.length} incomplete level{incorrectLevels.length !== 1 ? "s" : ""}</span>
+                )}
+                {incorrectLevels.length > 0 && exceededTargetLevels.length > 0 && <span>, </span>}
+                {exceededTargetLevels.length > 0 && (
+                  <span>{exceededTargetLevels.length} exceeded target moves</span>
+                )}
               </p>
               <div className="flex flex-wrap gap-2">
                 {incorrectLevels.map((attempt) => (
                   <span
-                    key={attempt.levelId}
+                    key={`incomplete-${attempt.levelId}`}
                     className="px-3 py-1 bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 rounded-full text-sm font-medium"
                   >
-                    Level {attempt.levelId}
+                    Level {attempt.levelId} (incomplete)
+                  </span>
+                ))}
+                {exceededTargetLevels.map((attempt) => (
+                  <span
+                    key={`exceeded-${attempt.levelId}`}
+                    className="px-3 py-1 bg-yellow-100 dark:bg-yellow-900/40 text-yellow-700 dark:text-yellow-300 rounded-full text-sm font-medium"
+                  >
+                    Level {attempt.levelId} ({attempt.moves}/{puzzleLevels.find(l => l.id === attempt.levelId)?.minMoves})
                   </span>
                 ))}
               </div>
@@ -175,13 +197,13 @@ export function SummaryDashboard() {
           )}
 
           <div className="flex flex-wrap gap-4 justify-center">
-            {incorrectLevels.length > 0 && (
+            {reviewableLevels.length > 0 && (
               <button
                 onClick={toggleMistakeReview}
-                className="px-8 py-4 rounded-xl font-semibold bg-gradient-to-r from-red-600 to-red-700 text-white shadow-lg hover:shadow-xl hover:from-red-700 hover:to-red-800 active:scale-95 transition-all flex items-center gap-2"
+                className="px-8 py-4 rounded-xl font-semibold bg-gradient-to-r from-orange-600 to-yellow-600 text-white shadow-lg hover:shadow-xl hover:from-orange-700 hover:to-yellow-700 active:scale-95 transition-all flex items-center gap-2"
               >
                 <XCircle className="w-5 h-5" />
-                Review Incomplete Levels ({incorrectLevels.length})
+                Review & Improve ({reviewableLevels.length})
               </button>
             )}
 

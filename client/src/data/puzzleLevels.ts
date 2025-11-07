@@ -29,7 +29,7 @@ export const puzzleLevels: PuzzleLevel[] = [
     ballEnd: { row: 2, col: 4 },
     blocks: [
       {
-        id: "blue1",
+        id: "level1_blue1",
         row: 1,
         col: 1,
         width: 1,
@@ -39,7 +39,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "green1",
+        id: "level1_green1",
         row: 1,
         col: 3,
         width: 1,
@@ -49,7 +49,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "gray1",
+        id: "level1_gray1",
         row: 0,
         col: 4,
         width: 1,
@@ -59,7 +59,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray2",
+        id: "level1_gray2",
         row: 2,
         col: 3,
         width: 1,
@@ -79,7 +79,7 @@ export const puzzleLevels: PuzzleLevel[] = [
     ballEnd: { row: 0, col: 4 },
     blocks: [
       {
-        id: "orange1",
+        id: "level2_orange1",
         row: 0,
         col: 1,
         width: 1,
@@ -89,7 +89,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "blue1",
+        id: "level2_blue1",
         row: 1,
         col: 2,
         width: 1,
@@ -99,7 +99,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "gray1",
+        id: "level2_gray1",
         row: 0,
         col: 3,
         width: 1,
@@ -109,7 +109,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray2",
+        id: "level2_gray2",
         row: 2,
         col: 3,
         width: 1,
@@ -129,7 +129,7 @@ export const puzzleLevels: PuzzleLevel[] = [
     ballEnd: { row: 0, col: 4 },
     blocks: [
       {
-        id: "orange1",
+        id: "level3_orange1",
         row: 0,
         col: 1,
         width: 1,
@@ -139,7 +139,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "green1",
+        id: "level3_green1",
         row: 1,
         col: 3,
         width: 1,
@@ -149,7 +149,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "gray1",
+        id: "level3_gray1",
         row: 0,
         col: 3,
         width: 1,
@@ -159,7 +159,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray2",
+        id: "level3_gray2",
         row: 3,
         col: 3,
         width: 1,
@@ -169,7 +169,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray3",
+        id: "level3_gray3",
         row: 2,
         col: 2,
         width: 1,
@@ -189,7 +189,7 @@ export const puzzleLevels: PuzzleLevel[] = [
     ballEnd: { row: 3, col: 6 },
     blocks: [
       {
-        id: "blue1",
+        id: "level4_blue1",
         row: 1,
         col: 1,
         width: 1,
@@ -199,7 +199,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "orange1",
+        id: "level4_orange1",
         row: 1,
         col: 3,
         width: 1,
@@ -209,7 +209,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "green1",
+        id: "level4_green1",
         row: 2,
         col: 4,
         width: 2,
@@ -219,7 +219,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "gray1",
+        id: "level4_gray1",
         row: 0,
         col: 2,
         width: 1,
@@ -229,7 +229,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray2",
+        id: "level4_gray2",
         row: 3,
         col: 0,
         width: 1,
@@ -239,7 +239,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray3",
+        id: "level4_gray3",
         row: 3,
         col: 5,
         width: 1,
@@ -259,7 +259,7 @@ export const puzzleLevels: PuzzleLevel[] = [
     ballEnd: { row: 0, col: 4 },
     blocks: [
       {
-        id: "orange1",
+        id: "level5_orange1",
         row: 0,
         col: 1,
         width: 1,
@@ -269,7 +269,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "blue1",
+        id: "level5_blue1",
         row: 2,
         col: 2,
         width: 1,
@@ -279,7 +279,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "green1",
+        id: "level5_green1",
         row: 1,
         col: 3,
         width: 2,
@@ -289,7 +289,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "purple1",
+        id: "level5_purple1",
         row: 2,
         col: 3,
         width: 1,
@@ -299,7 +299,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "gray1",
+        id: "level5_gray1",
         row: 1,
         col: 3,
         width: 2,
@@ -309,7 +309,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray2",
+        id: "level5_gray2",
         row: 4,
         col: 2,
         width: 1,
@@ -329,7 +329,7 @@ export const puzzleLevels: PuzzleLevel[] = [
     ballEnd: { row: 0, col: 4 },
     blocks: [
       {
-        id: "orange1",
+        id: "level6_orange1",
         row: 1,
         col: 0,
         width: 1,
@@ -339,7 +339,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "blue1",
+        id: "level6_blue1",
         row: 0,
         col: 2,
         width: 1,
@@ -349,7 +349,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "green1",
+        id: "level6_green1",
         row: 2,
         col: 1,
         width: 2,
@@ -359,7 +359,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "purple1",
+        id: "level6_purple1",
         row: 3,
         col: 2,
         width: 1,
@@ -369,7 +369,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "blue2",
+        id: "level6_blue2",
         row: 2,
         col: 3,
         width: 1,
@@ -379,7 +379,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "gray1",
+        id: "level6_gray1",
         row: 4,
         col: 1,
         width: 1,
@@ -389,7 +389,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray1",
+        id: "level6_gray1_1",
         row: 1,
         col: 3,
         width: 1,
@@ -409,7 +409,7 @@ export const puzzleLevels: PuzzleLevel[] = [
     ballEnd: { row: 0, col: 5 },
     blocks: [
       {
-        id: "orange1",
+        id: "level7_orange1",
         row: 0,
         col: 1,
         width: 1,
@@ -419,7 +419,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "blue1",
+        id: "level7_blue1",
         row: 3,
         col: 2,
         width: 1,
@@ -429,7 +429,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "green1",
+        id: "level7_green1",
         row: 1,
         col: 2,
         width: 1,
@@ -439,7 +439,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "purple1",
+        id: "level7_purple1",
         row: 3,
         col: 4,
         width: 1,
@@ -449,7 +449,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "orange2",
+        id: "level7_orange2",
         row: 3,
         col: 0,
         width: 1,
@@ -459,7 +459,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "gray1",
+        id: "level7_gray1",
         row: 1,
         col: 2,
         width: 2,
@@ -469,7 +469,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray2",
+        id: "level7_gray2",
         row: 2,
         col: 4,
         width: 1,
@@ -479,7 +479,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray3",
+        id: "level7_gray3",
         row: 5,
         col: 3,
         width: 1,
@@ -489,7 +489,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray4",
+        id: "level7_gray4",
         row: 4,
         col: 1,
         width: 1,
@@ -509,7 +509,7 @@ export const puzzleLevels: PuzzleLevel[] = [
     ballEnd: { row: 5, col: 5 },
     blocks: [
       {
-        id: "orange1",
+        id: "level8_orange1",
         row: 1,
         col: 1,
         width: 1,
@@ -519,7 +519,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "blue1",
+        id: "level8_blue1",
         row: 0,
         col: 3,
         width: 1,
@@ -529,7 +529,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "green1",
+        id: "level8_green1",
         row: 2,
         col: 2,
         width: 2,
@@ -539,7 +539,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "purple1",
+        id: "level8_purple1",
         row: 3,
         col: 3,
         width: 1,
@@ -549,7 +549,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "blue2",
+        id: "level8_blue2",
         row: 4,
         col: 1,
         width: 1,
@@ -559,7 +559,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "orange2",
+        id: "level8_orange2",
         row: 2,
         col: 4,
         width: 1,
@@ -569,7 +569,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "gray1",
+        id: "level8_gray1",
         row: 3,
         col: 2,
         width: 1,
@@ -579,7 +579,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray2",
+        id: "level8_gray2",
         row: 5,
         col: 4,
         width: 1,
@@ -589,7 +589,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray3",
+        id: "level8_gray3",
         row: 3,
         col: 5,
         width: 1,
@@ -609,7 +609,7 @@ export const puzzleLevels: PuzzleLevel[] = [
     ballEnd: { row: 0, col: 6 },
     blocks: [
       {
-        id: "orange1",
+        id: "level9_orange1",
         row: 0,
         col: 2,
         width: 1,
@@ -619,7 +619,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "blue1",
+        id: "level9_blue1",
         row: 2,
         col: 3,
         width: 1,
@@ -629,7 +629,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "green1",
+        id: "level9_green1",
         row: 1,
         col: 4,
         width: 2,
@@ -639,7 +639,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "purple1",
+        id: "level9_purple1",
         row: 2,
         col: 5,
         width: 1,
@@ -649,7 +649,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "orange2",
+        id: "level9_orange2",
         row: 1,
         col: 0,
         width: 1,
@@ -659,7 +659,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "blue2",
+        id: "level9_blue2",
         row: 3,
         col: 1,
         width: 1,
@@ -669,7 +669,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "gray1",
+        id: "level9_gray1",
         row: 5,
         col: 2,
         width: 1,
@@ -679,7 +679,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray2",
+        id: "level9_gray2",
         row: 0,
         col: 4,
         width: 1,
@@ -689,7 +689,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray3",
+        id: "level9_gray3",
         row: 4,
         col: 1,
         width: 1,
@@ -699,7 +699,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray3",
+        id: "level9_gray3_1",
         row: 1,
         col: 1,
         width: 1,
@@ -719,7 +719,7 @@ export const puzzleLevels: PuzzleLevel[] = [
     ballEnd: { row: 0, col: 0 },
     blocks: [
       {
-        id: "orange1",
+        id: "level10_orange1",
         row: 1,
         col: 1,
         width: 1,
@@ -729,7 +729,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "blue1",
+        id: "level10_blue1",
         row: 3,
         col: 2,
         width: 1,
@@ -739,7 +739,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "green1",
+        id: "level10_green1",
         row: 2,
         col: 3,
         width: 2,
@@ -749,7 +749,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "purple1",
+        id: "level10_purple1",
         row: 4,
         col: 4,
         width: 1,
@@ -759,7 +759,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "blue2",
+        id: "level10_blue2",
         row: 0,
         col: 2,
         width: 1,
@@ -769,7 +769,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "orange2",
+        id: "level10_orange2",
         row: 5,
         col: 0,
         width: 1,
@@ -779,7 +779,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "purple2",
+        id: "level10_purple2",
         row: 5,
         col: 2,
         width: 1,
@@ -789,7 +789,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "gray1",
+        id: "level10_gray1",
         row: 4,
         col: 3,
         width: 1,
@@ -799,7 +799,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray2",
+        id: "level10_gray2",
         row: 3,
         col: 5,
         width: 1,
@@ -819,7 +819,7 @@ export const puzzleLevels: PuzzleLevel[] = [
     ballEnd: { row: 2, col: 6 },
     blocks: [
       {
-        id: "orange1",
+        id: "level11_orange1",
         row: 1,
         col: 2,
         width: 1,
@@ -829,7 +829,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "blue1",
+        id: "level11_blue1",
         row: 1,
         col: 3,
         width: 1,
@@ -839,7 +839,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "green1",
+        id: "level11_green1",
         row: 1,
         col: 4,
         width: 2,
@@ -849,7 +849,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "purple1",
+        id: "level11_purple1",
         row: 2,
         col: 5,
         width: 1,
@@ -859,7 +859,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "orange2",
+        id: "level11_orange2",
         row: 2,
         col: 1,
         width: 1,
@@ -869,7 +869,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "blue2",
+        id: "level11_blue2",
         row: 4,
         col: 0,
         width: 1,
@@ -879,7 +879,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "green2",
+        id: "level11_green2",
         row: 5,
         col: 3,
         width: 3,
@@ -889,7 +889,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "purple2",
+        id: "level11_purple2",
         row: 0,
         col: 2,
         width: 1,
@@ -899,7 +899,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "gray1",
+        id: "level11_gray1",
         row: 4,
         col: 4,
         width: 1,
@@ -909,7 +909,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray2",
+        id: "level11_gray2",
         row: 4,
         col: 1,
         width: 1,
@@ -919,7 +919,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray3",
+        id: "level11_gray3",
         row: 0,
         col: 6,
         width: 1,
@@ -939,7 +939,7 @@ export const puzzleLevels: PuzzleLevel[] = [
     ballEnd: { row: 6, col: 0 },
     blocks: [
       {
-        id: "orange1",
+        id: "level12_orange1",
         row: 1,
         col: 1,
         width: 1,
@@ -949,7 +949,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "blue1",
+        id: "level12_blue1",
         row: 4,
         col: 3,
         width: 1,
@@ -959,7 +959,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "green1",
+        id: "level12_green1",
         row: 2,
         col: 4,
         width: 2,
@@ -969,7 +969,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "purple1",
+        id: "level12_purple1",
         row: 4,
         col: 4,
         width: 1,
@@ -979,7 +979,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "blue2",
+        id: "level12_blue2",
         row: 0,
         col: 2,
         width: 1,
@@ -989,7 +989,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "orange2",
+        id: "level12_orange2",
         row: 5,
         col: 2,
         width: 1,
@@ -999,7 +999,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "green2",
+        id: "level12_green2",
         row: 6,
         col: 3,
         width: 1,
@@ -1009,7 +1009,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "gray1",
+        id: "level12_gray1",
         row: 3,
         col: 2,
         width: 1,
@@ -1019,7 +1019,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray2",
+        id: "level12_gray2",
         row: 6,
         col: 5,
         width: 1,
@@ -1029,7 +1029,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray3",
+        id: "level12_gray3",
         row: 0,
         col: 0,
         width: 1,
@@ -1039,7 +1039,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray4",
+        id: "level12_gray4",
         row: 4,
         col: 1,
         width: 1,
@@ -1059,7 +1059,7 @@ export const puzzleLevels: PuzzleLevel[] = [
     ballEnd: { row: 0, col: 0 },
     blocks: [
       {
-        id: "orange1",
+        id: "level13_orange1",
         row: 5,
         col: 1,
         width: 1,
@@ -1069,7 +1069,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "blue1",
+        id: "level13_blue1",
         row: 3,
         col: 4,
         width: 1,
@@ -1079,7 +1079,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "green1",
+        id: "level13_green1",
         row: 3,
         col: 5,
         width: 1,
@@ -1089,7 +1089,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "purple1",
+        id: "level13_purple1",
         row: 4,
         col: 5,
         width: 1,
@@ -1099,7 +1099,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "orange2",
+        id: "level13_orange2",
         row: 0,
         col: 1,
         width: 1,
@@ -1109,7 +1109,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "blue2",
+        id: "level13_blue2",
         row: 2,
         col: 3,
         width: 1,
@@ -1119,7 +1119,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "purple2",
+        id: "level13_purple2",
         row: 2,
         col: 0,
         width: 1,
@@ -1129,7 +1129,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "gray1",
+        id: "level13_gray1",
         row: 3,
         col: 1,
         width: 1,
@@ -1139,7 +1139,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "gray2",
+        id: "level13_gray2",
         row: 2,
         col: 6,
         width: 1,
@@ -1149,7 +1149,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray3",
+        id: "level13_gray3",
         row: 1,
         col: 4,
         width: 1,
@@ -1159,7 +1159,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray4",
+        id: "level13_gray4",
         row: 6,
         col: 3,
         width: 1,
@@ -1179,7 +1179,7 @@ export const puzzleLevels: PuzzleLevel[] = [
     ballEnd: { row: 6, col: 6 },
     blocks: [
       {
-        id: "orange1",
+        id: "level14_orange1",
         row: 0,
         col: 1,
         width: 1,
@@ -1189,7 +1189,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "blue1",
+        id: "level14_blue1",
         row: 0,
         col: 3,
         width: 1,
@@ -1199,7 +1199,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "green1",
+        id: "level14_green1",
         row: 2,
         col: 3,
         width: 1,
@@ -1209,7 +1209,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "purple1",
+        id: "level14_purple1",
         row: 3,
         col: 4,
         width: 1,
@@ -1219,7 +1219,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "blue2",
+        id: "level14_blue2",
         row: 4,
         col: 2,
         width: 1,
@@ -1229,7 +1229,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "orange2",
+        id: "level14_orange2",
         row: 2,
         col: 5,
         width: 1,
@@ -1239,7 +1239,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "green2",
+        id: "level14_green2",
         row: 5,
         col: 4,
         width: 3,
@@ -1249,7 +1249,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "purple2",
+        id: "level14_purple2",
         row: 6,
         col: 1,
         width: 1,
@@ -1259,7 +1259,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "gray1",
+        id: "level14_gray1",
         row: 3,
         col: 3,
         width: 1,
@@ -1269,7 +1269,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray2",
+        id: "level14_gray2",
         row: 0,
         col: 6,
         width: 1,
@@ -1279,7 +1279,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray3",
+        id: "level14_gray3",
         row: 6,
         col: 2,
         width: 2,
@@ -1289,7 +1289,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray4",
+        id: "level14_gray4",
         row: 4,
         col: 1,
         width: 1,
@@ -1309,7 +1309,7 @@ export const puzzleLevels: PuzzleLevel[] = [
     ballEnd: { row: 3, col: 6 },
     blocks: [
       {
-        id: "orange1",
+        id: "level15_orange1",
         row: 3,
         col: 2,
         width: 1,
@@ -1319,7 +1319,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "blue1",
+        id: "level15_blue1",
         row: 2,
         col: 3,
         width: 1,
@@ -1329,7 +1329,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "green1",
+        id: "level15_green1",
         row: 2,
         col: 4,
         width: 1,
@@ -1339,7 +1339,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "purple1",
+        id: "level15_purple1",
         row: 3,
         col: 5,
         width: 1,
@@ -1349,7 +1349,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "orange2",
+        id: "level15_orange2",
         row: 1,
         col: 2,
         width: 1,
@@ -1359,7 +1359,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "blue2",
+        id: "level15_blue2",
         row: 5,
         col: 2,
         width: 1,
@@ -1369,7 +1369,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "green2",
+        id: "level15_green2",
         row: 6,
         col: 4,
         width: 2,
@@ -1379,7 +1379,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "purple2",
+        id: "level15_purple2",
         row: 0,
         col: 2,
         width: 1,
@@ -1389,7 +1389,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "gray1",
+        id: "level15_gray1",
         row: 3,
         col: 4,
         width: 1,
@@ -1399,7 +1399,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray2",
+        id: "level15_gray2",
         row: 2,
         col: 0,
         width: 1,
@@ -1409,7 +1409,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray3",
+        id: "level15_gray3",
         row: 6,
         col: 2,
         width: 1,
@@ -1419,7 +1419,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray4",
+        id: "level15_gray4",
         row: 2,
         col: 6,
         width: 1,
@@ -1439,7 +1439,7 @@ export const puzzleLevels: PuzzleLevel[] = [
     ballEnd: { row: 0, col: 3 },
     blocks: [
       {
-        id: "orange1",
+        id: "level16_orange1",
         row: 0,
         col: 1,
         width: 1,
@@ -1449,7 +1449,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "blue1",
+        id: "level16_blue1",
         row: 4,
         col: 3,
         width: 1,
@@ -1459,7 +1459,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "green1",
+        id: "level16_green1",
         row: 2,
         col: 5,
         width: 2,
@@ -1469,7 +1469,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "purple1",
+        id: "level16_purple1",
         row: 4,
         col: 4,
         width: 1,
@@ -1479,7 +1479,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "orange2",
+        id: "level16_orange2",
         row: 1,
         col: 2,
         width: 1,
@@ -1489,7 +1489,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "blue2",
+        id: "level16_blue2",
         row: 1,
         col: 4,
         width: 1,
@@ -1499,7 +1499,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "green2",
+        id: "level16_green2",
         row: 5,
         col: 0,
         width: 2,
@@ -1509,7 +1509,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "purple2",
+        id: "level16_purple2",
         row: 6,
         col: 5,
         width: 1,
@@ -1519,7 +1519,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "orange3",
+        id: "level16_orange3",
         row: 3,
         col: 0,
         width: 1,
@@ -1529,7 +1529,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "gray1",
+        id: "level16_gray1",
         row: 4,
         col: 1,
         width: 2,
@@ -1539,7 +1539,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray2",
+        id: "level16_gray2",
         row: 0,
         col: 6,
         width: 1,
@@ -1559,7 +1559,7 @@ export const puzzleLevels: PuzzleLevel[] = [
     ballEnd: { row: 0, col: 0 },
     blocks: [
       {
-        id: "orange1",
+        id: "level17_orange1",
         row: 2,
         col: 2,
         width: 1,
@@ -1569,7 +1569,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "blue1",
+        id: "level17_blue1",
         row: 3,
         col: 4,
         width: 1,
@@ -1579,7 +1579,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "green1",
+        id: "level17_green1",
         row: 2,
         col: 4,
         width: 2,
@@ -1589,7 +1589,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "purple1",
+        id: "level17_purple1",
         row: 4,
         col: 5,
         width: 1,
@@ -1599,7 +1599,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "orange2",
+        id: "level17_orange2",
         row: 0,
         col: 1,
         width: 1,
@@ -1609,7 +1609,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "blue2",
+        id: "level17_blue2",
         row: 2,
         col: 3,
         width: 1,
@@ -1619,7 +1619,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "green2",
+        id: "level17_green2",
         row: 0,
         col: 2,
         width: 2,
@@ -1629,7 +1629,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "purple2",
+        id: "level17_purple2",
         row: 3,
         col: 0,
         width: 1,
@@ -1639,7 +1639,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "orange3",
+        id: "level17_orange3",
         row: 6,
         col: 2,
         width: 1,
@@ -1649,7 +1649,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "blue3",
+        id: "level17_blue3",
         row: 5,
         col: 3,
         width: 1,
@@ -1659,7 +1659,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray1",
+        id: "level17_gray1",
         row: 4,
         col: 1,
         width: 1,
@@ -1669,7 +1669,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray2",
+        id: "level17_gray2",
         row: 3,
         col: 6,
         width: 1,
@@ -1679,7 +1679,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray3",
+        id: "level17_gray3",
         row: 6,
         col: 4,
         width: 1,
@@ -1699,7 +1699,7 @@ export const puzzleLevels: PuzzleLevel[] = [
     ballEnd: { row: 6, col: 0 },
     blocks: [
       {
-        id: "orange1",
+        id: "level18_orange1",
         row: 1,
         col: 1,
         width: 1,
@@ -1709,7 +1709,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "blue1",
+        id: "level18_blue1",
         row: 3,
         col: 3,
         width: 1,
@@ -1719,7 +1719,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "green1",
+        id: "level18_green1",
         row: 4,
         col: 6,
         width: 1,
@@ -1729,7 +1729,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "purple1",
+        id: "level18_purple1",
         row: 4,
         col: 4,
         width: 1,
@@ -1739,7 +1739,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "orange2",
+        id: "level18_orange2",
         row: 2,
         col: 2,
         width: 1,
@@ -1749,7 +1749,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "blue2",
+        id: "level18_blue2",
         row: 1,
         col: 4,
         width: 1,
@@ -1759,7 +1759,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "green2",
+        id: "level18_green2",
         row: 0,
         col: 3,
         width: 1,
@@ -1769,7 +1769,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "purple2",
+        id: "level18_purple2",
         row: 1,
         col: 0,
         width: 1,
@@ -1779,7 +1779,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "orange3",
+        id: "level18_orange3",
         row: 5,
         col: 2,
         width: 2,
@@ -1789,7 +1789,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "blue3",
+        id: "level18_blue3",
         row: 4,
         col: 0,
         width: 1,
@@ -1799,7 +1799,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "gray1",
+        id: "level18_gray1",
         row: 4,
         col: 2,
         width: 2,
@@ -1809,7 +1809,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray2",
+        id: "level18_gray2",
         row: 2,
         col: 6,
         width: 1,
@@ -1819,7 +1819,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray3",
+        id: "level18_gray3",
         row: 6,
         col: 5,
         width: 1,
@@ -1829,7 +1829,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray4",
+        id: "level18_gray4",
         row: 6,
         col: 1,
         width: 1,
@@ -1849,7 +1849,7 @@ export const puzzleLevels: PuzzleLevel[] = [
     ballEnd: { row: 3, col: 6 },
     blocks: [
       {
-        id: "orange1",
+        id: "level19_orange1",
         row: 1,
         col: 2,
         width: 1,
@@ -1859,7 +1859,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "blue1",
+        id: "level19_blue1",
         row: 4,
         col: 4,
         width: 1,
@@ -1869,7 +1869,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "green1",
+        id: "level19_green1",
         row: 2,
         col: 4,
         width: 1,
@@ -1879,7 +1879,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "purple1",
+        id: "level19_purple1",
         row: 3,
         col: 5,
         width: 1,
@@ -1889,7 +1889,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "orange2",
+        id: "level19_orange2",
         row: 1,
         col: 1,
         width: 1,
@@ -1899,7 +1899,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "blue2",
+        id: "level19_blue2",
         row: 1,
         col: 4,
         width: 1,
@@ -1909,7 +1909,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "green2",
+        id: "level19_green2",
         row: 0,
         col: 1,
         width: 4,
@@ -1919,7 +1919,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "purple2",
+        id: "level19_purple2",
         row: 3,
         col: 0,
         width: 1,
@@ -1929,7 +1929,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "orange3",
+        id: "level19_orange3",
         row: 5,
         col: 1,
         width: 2,
@@ -1939,7 +1939,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "blue3",
+        id: "level19_blue3",
         row: 2,
         col: 3,
         width: 1,
@@ -1949,7 +1949,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "green3",
+        id: "level19_green3",
         row: 5,
         col: 3,
         width: 2,
@@ -1959,7 +1959,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "gray1",
+        id: "level19_gray1",
         row: 4,
         col: 1,
         width: 1,
@@ -1969,7 +1969,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray2",
+        id: "level19_gray2",
         row: 4,
         col: 6,
         width: 1,
@@ -1979,7 +1979,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray3",
+        id: "level19_gray3",
         row: 1,
         col: 3,
         width: 1,
@@ -1989,7 +1989,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray4",
+        id: "level19_gray4",
         row: 0,
         col: 0,
         width: 1,
@@ -2009,7 +2009,7 @@ export const puzzleLevels: PuzzleLevel[] = [
     ballEnd: { row: 3, col: 6 },
     blocks: [
       {
-        id: "blue1",
+        id: "level20_blue1",
         row: 3,
         col: 4,
         width: 1,
@@ -2019,7 +2019,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "green1",
+        id: "level20_green1",
         row: 0,
         col: 1,
         width: 1,
@@ -2029,7 +2029,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "purple1",
+        id: "level20_purple1",
         row: 1,
         col: 4,
         width: 1,
@@ -2039,7 +2039,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "orange1",
+        id: "level20_orange1",
         row: 3,
         col: 3,
         width: 1,
@@ -2049,7 +2049,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "blue2",
+        id: "level20_blue2",
         row: 1,
         col: 0,
         width: 1,
@@ -2059,7 +2059,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "green2",
+        id: "level20_green2",
         row: 3,
         col: 1,
         width: 1,
@@ -2069,7 +2069,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "purple2",
+        id: "level20_purple2",
         row: 0,
         col: 3,
         width: 1,
@@ -2079,7 +2079,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "orange2",
+        id: "level20_orange2",
         row: 4,
         col: 5,
         width: 1,
@@ -2089,7 +2089,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "blue3",
+        id: "level20_blue3",
         row: 5,
         col: 2,
         width: 2,
@@ -2099,7 +2099,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "green3",
+        id: "level20_green3",
         row: 6,
         col: 2,
         width: 2,
@@ -2109,7 +2109,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "purple3",
+        id: "level20_purple3",
         row: 4,
         col: 6,
         width: 1,
@@ -2119,7 +2119,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "purple4",
+        id: "level20_purple4",
         row: 0,
         col: 5,
         width: 1,
@@ -2129,7 +2129,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "green4",
+        id: "level20_green4",
         row: 5,
         col: 1,
         width: 1,
@@ -2139,7 +2139,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "green5",
+        id: "level20_green5",
         row: 2,
         col: 2,
         width: 2,
@@ -2149,7 +2149,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: true,
       },
       {
-        id: "gray1",
+        id: "level20_gray1",
         row: 0,
         col: 6,
         width: 1,
@@ -2159,7 +2159,7 @@ export const puzzleLevels: PuzzleLevel[] = [
         movable: false,
       },
       {
-        id: "gray2",
+        id: "level20_gray2",
         row: 6,
         col: 6,
         width: 1,

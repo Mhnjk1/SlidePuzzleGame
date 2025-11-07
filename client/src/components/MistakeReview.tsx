@@ -7,6 +7,14 @@ export function MistakeReview() {
   const { levelAttempts, toggleMistakeReview } = useMotionGame();
 
   const incorrectAttempts = levelAttempts.filter(a => !a.isCorrect);
+  
+  const exceededTargetAttempts = levelAttempts.filter(a => {
+    if (!a.isCorrect) return false;
+    const level = puzzleLevels.find(l => l.id === a.levelId);
+    return level && a.moves > level.minMoves;
+  });
+
+  const allReviewableAttempts = [...incorrectAttempts, ...exceededTargetAttempts];
 
   return (
     <div className="fixed inset-0 bg-black/50 backdrop-blur-sm z-50 flex items-center justify-center p-4 overflow-y-auto">
@@ -14,10 +22,10 @@ export function MistakeReview() {
         <div className="sticky top-0 bg-white dark:bg-gray-800 border-b border-gray-200 dark:border-gray-700 p-6 flex items-center justify-between">
           <div>
             <h2 className="text-3xl font-bold text-gray-800 dark:text-gray-100">
-              Review Mistakes
+              Review & Improve
             </h2>
             <p className="text-gray-600 dark:text-gray-400 mt-1">
-              Understanding what went wrong helps you improve
+              {incorrectAttempts.length} incomplete, {exceededTargetAttempts.length} exceeded target moves
             </p>
           </div>
           <button
@@ -29,9 +37,12 @@ export function MistakeReview() {
         </div>
 
         <div className="p-6 space-y-6">
-          {incorrectAttempts.map((attempt, index) => {
+          {allReviewableAttempts.map((attempt, index) => {
             const level = puzzleLevels.find(l => l.id === attempt.levelId);
             if (!level) return null;
+
+            const isIncomplete = !attempt.isCorrect;
+            const exceededMoves = attempt.isCorrect && attempt.moves > level.minMoves;
 
             const gridState = {
               rows: level.gridRows,
@@ -55,7 +66,7 @@ export function MistakeReview() {
             });
 
             let blockingReason = '';
-            if (attempt.userBlocks) {
+            if (isIncomplete && attempt.userBlocks) {
               const criticalBlocks = attempt.userBlocks.filter(block => {
                 for (let r = block.row; r < block.row + block.height; r++) {
                   for (let c = block.col; c < block.col + block.width; c++) {
@@ -90,20 +101,39 @@ export function MistakeReview() {
             return (
               <div
                 key={`${attempt.levelId}-${index}`}
-                className="bg-gradient-to-br from-red-50 to-orange-50 dark:from-red-900/10 dark:to-orange-900/10 rounded-xl p-6 border-2 border-red-200 dark:border-red-800"
+                className={`rounded-xl p-6 border-2 ${
+                  isIncomplete
+                    ? 'bg-gradient-to-br from-red-50 to-orange-50 dark:from-red-900/10 dark:to-orange-900/10 border-red-200 dark:border-red-800'
+                    : 'bg-gradient-to-br from-yellow-50 to-amber-50 dark:from-yellow-900/10 dark:to-amber-900/10 border-yellow-200 dark:border-yellow-800'
+                }`}
               >
                 <div className="flex items-start gap-4 mb-4">
-                  <AlertCircle className="w-8 h-8 text-red-600 dark:text-red-400 flex-shrink-0 mt-1" />
+                  <AlertCircle className={`w-8 h-8 flex-shrink-0 mt-1 ${
+                    isIncomplete ? 'text-red-600 dark:text-red-400' : 'text-yellow-600 dark:text-yellow-400'
+                  }`} />
                   <div className="flex-1">
                     <h3 className="text-xl font-bold text-gray-800 dark:text-gray-100 mb-2">
                       Level {level.id} ({level.gridRows}×{level.gridCols} Grid)
                     </h3>
-                    <p className="text-gray-700 dark:text-gray-300 mb-3">
-                      <strong>Problem:</strong> No clear path was found from the Start (green) to the End (red) position.
-                    </p>
-                    <p className="text-gray-700 dark:text-gray-300 mb-3">
-                      <strong>What went wrong:</strong> {blockingReason}
-                    </p>
+                    {isIncomplete ? (
+                      <>
+                        <p className="text-gray-700 dark:text-gray-300 mb-3">
+                          <strong>Problem:</strong> No clear path was found from the Start (green) to the End (red) position.
+                        </p>
+                        <p className="text-gray-700 dark:text-gray-300 mb-3">
+                          <strong>What went wrong:</strong> {blockingReason}
+                        </p>
+                      </>
+                    ) : (
+                      <>
+                        <p className="text-gray-700 dark:text-gray-300 mb-3">
+                          <strong>Issue:</strong> You completed this level but used <span className="font-bold text-yellow-700 dark:text-yellow-300">{attempt.moves} moves</span> instead of the optimal <span className="font-bold text-green-700 dark:text-green-300">{level.minMoves} moves</span>.
+                        </p>
+                        <p className="text-gray-700 dark:text-gray-300 mb-3">
+                          <strong>Room for improvement:</strong> Study the optimal solution to find a more efficient path.
+                        </p>
+                      </>
+                    )}
                   </div>
                 </div>
 
@@ -202,14 +232,14 @@ export function MistakeReview() {
             );
           })}
 
-          {incorrectAttempts.length === 0 && (
+          {allReviewableAttempts.length === 0 && (
             <div className="text-center py-12">
               <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
               <h3 className="text-2xl font-bold text-gray-800 dark:text-gray-100 mb-2">
                 Perfect Score!
               </h3>
               <p className="text-gray-600 dark:text-gray-400">
-                You solved all puzzles correctly on the first try.
+                You solved all puzzles correctly with optimal moves.
               </p>
             </div>
           )}

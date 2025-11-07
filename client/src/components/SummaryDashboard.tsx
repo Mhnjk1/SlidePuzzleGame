@@ -33,19 +33,23 @@ export function SummaryDashboard() {
   const movePenalty = 3;
   const timePenalty = 2;
 
-  const extraMoves = Math.max(0, totalMoves - totalOptimalMoves);
-  const movePenaltyPoints = movePenalty * extraMoves;
-  const timePenaltyPoints = timePenalty * totalTime;
+  const score = correctLevelAttempts.reduce((totalScore, attempt) => {
+    const level = puzzleLevels.find((l) => l.id === attempt.levelId);
+    if (!level) return totalScore;
+    
+    const extraMoves = Math.max(0, attempt.moves - level.minMoves);
+    const levelScore = Math.max(
+      0,
+      baseScore - (movePenalty * extraMoves) - (timePenalty * attempt.timeTaken)
+    );
+    
+    return totalScore + levelScore;
+  }, 0);
 
-  const score = Math.max(
-    0,
-    Math.round(baseScore - movePenaltyPoints - timePenaltyPoints),
-  );
+  const maxPossibleScore = correctLevelAttempts.length * baseScore;
 
   const fastSolutions = levelAttempts.filter((a) => {
-    if (!a.isCorrect) return false;
-    const level = puzzleLevels.find((l) => l.id === a.levelId);
-    return level && a.moves <= level.minMoves;
+    return a.isCorrect && a.timeTaken <= 10;
   }).length;
 
   const incorrectLevels = levelAttempts.filter((a) => !a.isCorrect);
@@ -90,7 +94,7 @@ export function SummaryDashboard() {
                 {score}
               </p>
               <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
-                Out of 200 points
+                Out of {maxPossibleScore} points
               </p>
             </div>
 

@@ -1,35 +1,52 @@
-import { useMotionGame } from '@/lib/stores/useMotionGame';
-import { puzzleLevels } from '@/data/puzzleLevels';
-import { Trophy, Award, Clock, Target, TrendingUp, Zap, CheckCircle2, XCircle } from 'lucide-react';
+import { useMotionGame } from "@/lib/stores/useMotionGame";
+import { puzzleLevels } from "@/data/puzzleLevels";
+import {
+  Trophy,
+  Award,
+  Clock,
+  Target,
+  TrendingUp,
+  Zap,
+  CheckCircle2,
+  XCircle,
+} from "lucide-react";
 
 export function SummaryDashboard() {
   const { levelAttempts, resetGame, toggleMistakeReview } = useMotionGame();
 
-  const correctAttempts = levelAttempts.filter(a => a.isCorrect).length;
-  const incorrectAttempts = levelAttempts.filter(a => !a.isCorrect).length;
-  
-  const correctLevelAttempts = levelAttempts.filter(a => a.isCorrect);
+  const correctAttempts = levelAttempts.filter((a) => a.isCorrect).length;
+  const incorrectAttempts = levelAttempts.filter((a) => !a.isCorrect).length;
+
+  const correctLevelAttempts = levelAttempts.filter((a) => a.isCorrect);
   const totalMoves = correctLevelAttempts.reduce((sum, a) => sum + a.moves, 0);
-  const totalTime = correctLevelAttempts.reduce((sum, a) => sum + a.timeTaken, 0);
-  
+  const totalTime = correctLevelAttempts.reduce(
+    (sum, a) => sum + a.timeTaken,
+    0,
+  );
+
   const totalOptimalMoves = correctLevelAttempts.reduce((sum, attempt) => {
-    const level = puzzleLevels.find(l => l.id === attempt.levelId);
+    const level = puzzleLevels.find((l) => l.id === attempt.levelId);
     return sum + (level?.minMoves || 0);
   }, 0);
-  
+
   const baseScore = 200;
   const movePenalty = 3;
   const timePenalty = 2;
-  
+
   const extraMoves = Math.max(0, totalMoves - totalOptimalMoves);
   const movePenaltyPoints = movePenalty * extraMoves;
   const timePenaltyPoints = timePenalty * totalTime;
-  
-  const score = Math.max(0, Math.round(baseScore - movePenaltyPoints - timePenaltyPoints));
 
-  const fastSolutions = levelAttempts.filter(a => a.isCorrect && a.timeTaken < 10).length;
-  
-  const incorrectLevels = levelAttempts.filter(a => !a.isCorrect);
+  const score = Math.max(
+    0,
+    Math.round(baseScore - movePenaltyPoints - timePenaltyPoints),
+  );
+
+  const fastSolutions = levelAttempts.filter(
+    (a) => a.isCorrect && a.timeTaken < 10,
+  ).length;
+
+  const incorrectLevels = levelAttempts.filter((a) => !a.isCorrect);
 
   const formatTime = (seconds: number) => {
     const mins = Math.floor(seconds / 60);
@@ -43,7 +60,7 @@ export function SummaryDashboard() {
         <div className="bg-white dark:bg-gray-800 rounded-2xl shadow-2xl p-8">
           <div className="text-center mb-8">
             <Trophy className="w-20 h-20 mx-auto text-yellow-500 mb-4" />
-            <h1 className="text-4xl font-bold text-gray-800 dark:text-gray-100 mb-2">
+            <h1 className="text-4xl font-bold text-gray-900 dark:text-gray-100 mb-2">
               Game Complete!
             </h1>
             <p className="text-gray-600 dark:text-gray-400">
@@ -54,15 +71,15 @@ export function SummaryDashboard() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
             <div className="bg-gradient-to-br from-green-50 to-emerald-50 dark:from-green-900/20 dark:to-emerald-900/20 p-6 rounded-l border-2 border-green-200 dark:border-green-600">
               <div className="flex items-center gap-3 mb-2">
-                <Award className="w-8 h-8 text-green-500 dark:text-green-300" />
+                <Award className="w-8 h-8 text-green-600 dark:text-green-400" />
                 <h3 className="text-lg font-semibold text-gray-600 dark:text-gray-100">
                   Total Score
                 </h3>
               </div>
-              <p className="text-3xl font-bold text-green-500 dark:text-green-300">
+              <p className="text-3xl font-bold text-green-600 dark:text-green-400">
                 {score}
               </p>
-              <p className="text-sm text-gray-500 dark:text-gray-300 mt-1">
+              <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                 Out of 200 points
               </p>
             </div>
@@ -75,7 +92,10 @@ export function SummaryDashboard() {
                 </h3>
               </div>
               <p className="text-4xl font-bold text-blue-600 dark:text-blue-400">
-                {levelAttempts.length > 0 ? ((correctAttempts / puzzleLevels.length) * 100).toFixed(0) : '0'}%
+                {levelAttempts.length > 0
+                  ? ((correctAttempts / puzzleLevels.length) * 100).toFixed(0)
+                  : "0"}
+                %
               </p>
               <p className="text-sm text-gray-600 dark:text-gray-400 mt-1">
                 {correctAttempts} of {puzzleLevels.length} levels completed
@@ -103,9 +123,13 @@ export function SummaryDashboard() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <TrendingUp className="w-5 h-5 text-purple-600 dark:text-purple-400" />
-                  <span className="text-sm font-medium text-gray-600 dark:text-gray-300">Total Moves</span>
+                  <span className="text-sm font-medium text-gray-600 dark:text-gray-300">
+                    Total Moves
+                  </span>
                 </div>
-                <span className="text-2xl font-bold text-purple-600 dark:text-purple-400">{totalMoves}</span>
+                <span className="text-2xl font-bold text-purple-600 dark:text-purple-400">
+                  {totalMoves}
+                </span>
               </div>
             </div>
 
@@ -113,9 +137,13 @@ export function SummaryDashboard() {
               <div className="flex items-center justify-between">
                 <div className="flex items-center gap-2">
                   <Zap className="w-5 h-5 text-cyan-600 dark:text-cyan-400" />
-                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">Speed Wins</span>
+                  <span className="text-sm font-medium text-gray-700 dark:text-gray-300">
+                    Speed Wins
+                  </span>
                 </div>
-                <span className="text-2xl font-bold text-cyan-600 dark:text-cyan-400">{fastSolutions}</span>
+                <span className="text-2xl font-bold text-cyan-600 dark:text-cyan-400">
+                  {fastSolutions}
+                </span>
               </div>
             </div>
           </div>
@@ -129,10 +157,12 @@ export function SummaryDashboard() {
                 </h3>
               </div>
               <p className="text-sm text-gray-600 dark:text-gray-400 mb-4">
-                You didn't complete {incorrectLevels.length} level{incorrectLevels.length !== 1 ? 's' : ''} before time ran out. Review them to improve your skills!
+                You didn't complete {incorrectLevels.length} level
+                {incorrectLevels.length !== 1 ? "s" : ""} before time ran out.
+                Review them to improve your skills!
               </p>
               <div className="flex flex-wrap gap-2">
-                {incorrectLevels.map(attempt => (
+                {incorrectLevels.map((attempt) => (
                   <span
                     key={attempt.levelId}
                     className="px-3 py-1 bg-red-100 dark:bg-red-900/40 text-red-700 dark:text-red-300 rounded-full text-sm font-medium"
@@ -154,7 +184,7 @@ export function SummaryDashboard() {
                 Review Incomplete Levels ({incorrectLevels.length})
               </button>
             )}
-            
+
             <button
               onClick={resetGame}
               className="px-8 py-4 rounded-xl font-semibold bg-gradient-to-r from-emerald-600 to-teal-600 text-white shadow-lg hover:shadow-xl hover:from-emerald-700 hover:to-teal-700 active:scale-95 transition-all flex items-center gap-2"

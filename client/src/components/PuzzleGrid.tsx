@@ -1,7 +1,7 @@
-import { useEffect, useRef, useState } from 'react';
-import { Block as BlockType } from '@/data/puzzleLevels';
-import { checkCollision } from '@/utils/pathfinding';
-import { useMotionGame } from '@/lib/stores/useMotionGame';
+import { useEffect, useRef, useState } from "react";
+import { Block as BlockType } from "@/data/puzzleLevels";
+import { checkCollision } from "@/utils/pathfinding";
+import { useMotionGame } from "@/lib/stores/useMotionGame";
 
 interface DraggableBlockProps {
   block: BlockType;
@@ -12,7 +12,14 @@ interface DraggableBlockProps {
   onMove: (blockId: string, newRow: number, newCol: number) => void;
 }
 
-function DraggableBlock({ block, cellSize, gridRows, gridCols, allBlocks, onMove }: DraggableBlockProps) {
+function DraggableBlock({
+  block,
+  cellSize,
+  gridRows,
+  gridCols,
+  allBlocks,
+  onMove,
+}: DraggableBlockProps) {
   const { ballRow, ballCol } = useMotionGame();
   const [isDragging, setIsDragging] = useState(false);
   const [position, setPosition] = useState({ row: block.row, col: block.col });
@@ -25,7 +32,7 @@ function DraggableBlock({ block, cellSize, gridRows, gridCols, allBlocks, onMove
 
   const handleMouseDown = (e: React.MouseEvent) => {
     if (!block.movable) return;
-    
+
     setIsDragging(true);
     const rect = blockRef.current!.getBoundingClientRect();
     setDragOffset({
@@ -36,7 +43,7 @@ function DraggableBlock({ block, cellSize, gridRows, gridCols, allBlocks, onMove
 
   const handleTouchStart = (e: React.TouchEvent) => {
     if (!block.movable) return;
-    
+
     setIsDragging(true);
     const touch = e.touches[0];
     const rect = blockRef.current!.getBoundingClientRect();
@@ -60,7 +67,7 @@ function DraggableBlock({ block, cellSize, gridRows, gridCols, allBlocks, onMove
       let newCol = Math.round(relativeX / cellSize);
       let newRow = Math.round(relativeY / cellSize);
 
-      if (block.orientation === 'horizontal') {
+      if (block.orientation === "horizontal") {
         newRow = block.row;
       } else {
         newCol = block.col;
@@ -83,8 +90,19 @@ function DraggableBlock({ block, cellSize, gridRows, gridCols, allBlocks, onMove
 
     const handleEnd = () => {
       setIsDragging(false);
-      
-      if (!checkCollision(block, position.row, position.col, allBlocks, gridRows, gridCols, ballRow, ballCol)) {
+
+      if (
+        !checkCollision(
+          block,
+          position.row,
+          position.col,
+          allBlocks,
+          gridRows,
+          gridCols,
+          ballRow,
+          ballCol,
+        )
+      ) {
         if (position.row !== block.row || position.col !== block.col) {
           onMove(block.id, position.row, position.col);
         }
@@ -93,44 +111,56 @@ function DraggableBlock({ block, cellSize, gridRows, gridCols, allBlocks, onMove
       }
     };
 
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleEnd);
-    document.addEventListener('touchmove', handleTouchMove);
-    document.addEventListener('touchend', handleEnd);
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleEnd);
+    document.addEventListener("touchmove", handleTouchMove);
+    document.addEventListener("touchend", handleEnd);
 
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleEnd);
-      document.removeEventListener('touchmove', handleTouchMove);
-      document.removeEventListener('touchend', handleEnd);
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleEnd);
+      document.removeEventListener("touchmove", handleTouchMove);
+      document.removeEventListener("touchend", handleEnd);
     };
-  }, [isDragging, position, dragOffset, block, allBlocks, gridRows, gridCols, cellSize, onMove, ballRow, ballCol]);
+  }, [
+    isDragging,
+    position,
+    dragOffset,
+    block,
+    allBlocks,
+    gridRows,
+    gridCols,
+    cellSize,
+    onMove,
+    ballRow,
+    ballCol,
+  ]);
 
   const style: React.CSSProperties = {
-    position: 'absolute',
+    position: "absolute",
     left: `${position.col * cellSize}px`,
     top: `${position.row * cellSize}px`,
     width: `${block.width * cellSize}px`,
     height: `${block.height * cellSize}px`,
     backgroundColor: block.color,
-    border: '2px solid rgba(0, 0, 0, 0.2)',
-    borderRadius: '6px',
-    cursor: block.movable ? 'grab' : 'default',
-    transition: isDragging ? 'none' : 'transform 0.2s ease-out',
+    border: "2px solid rgba(0, 0, 0, 0.2)",
+    borderRadius: "6px",
+    cursor: block.movable ? "grab" : "default",
+    transition: isDragging ? "none" : "transform 0.2s ease-out",
     zIndex: isDragging ? 1000 : 10,
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-    color: 'white',
-    fontSize: '12px',
-    fontWeight: 'bold',
-    userSelect: 'none',
-    touchAction: 'none',
+    display: "flex",
+    alignItems: "center",
+    justifyContent: "center",
+    color: "white",
+    fontSize: "12px",
+    fontWeight: "bold",
+    userSelect: "none",
+    touchAction: "none",
   };
 
   if (isDragging) {
-    style.cursor = 'grabbing';
-    style.boxShadow = '0 8px 16px rgba(0, 0, 0, 0.3)';
+    style.cursor = "grabbing";
+    style.boxShadow = "0 8px 16px rgba(0, 0, 0, 0.3)";
   }
 
   return (
@@ -140,7 +170,7 @@ function DraggableBlock({ block, cellSize, gridRows, gridCols, allBlocks, onMove
       onMouseDown={handleMouseDown}
       onTouchStart={handleTouchStart}
     >
-      {block.movable && '≡'}
+      {block.movable && "≡"}
     </div>
   );
 }
@@ -152,12 +182,28 @@ interface DraggableBallProps {
   allBlocks: BlockType[];
 }
 
-function DraggableBall({ cellSize, gridRows, gridCols, allBlocks }: DraggableBallProps) {
-  const { ballRow, ballCol, moveBall, checkWinCondition, nextLevel, getCurrentLevel, gameCompleted, incrementMoves } = useMotionGame();
+function DraggableBall({
+  cellSize,
+  gridRows,
+  gridCols,
+  allBlocks,
+}: DraggableBallProps) {
+  const {
+    ballRow,
+    ballCol,
+    moveBall,
+    checkWinCondition,
+    nextLevel,
+    getCurrentLevel,
+    gameCompleted,
+    incrementMoves,
+  } = useMotionGame();
   const [isDragging, setIsDragging] = useState(false);
   const [position, setPosition] = useState({ row: ballRow, col: ballCol });
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
-  const [dragDirection, setDragDirection] = useState<'horizontal' | 'vertical' | null>(null);
+  const [dragDirection, setDragDirection] = useState<
+    "horizontal" | "vertical" | null
+  >(null);
   const ballRef = useRef<HTMLDivElement>(null);
   const winTimeoutRef = useRef<NodeJS.Timeout | null>(null);
   const currentLevelIdRef = useRef(getCurrentLevel().id);
@@ -165,7 +211,7 @@ function DraggableBall({ cellSize, gridRows, gridCols, allBlocks }: DraggableBal
 
   useEffect(() => {
     setPosition({ row: ballRow, col: ballCol });
-    
+
     const currentLevelId = getCurrentLevel().id;
     if (currentLevelId !== currentLevelIdRef.current || gameCompleted) {
       if (winTimeoutRef.current) {
@@ -177,7 +223,7 @@ function DraggableBall({ cellSize, gridRows, gridCols, allBlocks }: DraggableBal
   }, [ballRow, ballCol, getCurrentLevel, gameCompleted]);
 
   const isCellOccupied = (row: number, col: number): boolean => {
-    return allBlocks.some(block => {
+    return allBlocks.some((block) => {
       return (
         row >= block.row &&
         row < block.row + block.height &&
@@ -187,30 +233,42 @@ function DraggableBall({ cellSize, gridRows, gridCols, allBlocks }: DraggableBal
     });
   };
 
-  const findValidPosition = (targetRow: number, targetCol: number, direction: 'horizontal' | 'vertical'): { row: number, col: number } => {
-    if (direction === 'horizontal') {
+  const findValidPosition = (
+    targetRow: number,
+    targetCol: number,
+    direction: "horizontal" | "vertical",
+  ): { row: number; col: number } => {
+    if (direction === "horizontal") {
       const step = targetCol > ballCol ? 1 : -1;
       let validCol = ballCol;
-      
-      for (let col = ballCol + step; step > 0 ? col <= targetCol : col >= targetCol; col += step) {
+
+      for (
+        let col = ballCol + step;
+        step > 0 ? col <= targetCol : col >= targetCol;
+        col += step
+      ) {
         if (col < 0 || col >= gridCols || isCellOccupied(ballRow, col)) {
           break;
         }
         validCol = col;
       }
-      
+
       return { row: ballRow, col: validCol };
     } else {
       const step = targetRow > ballRow ? 1 : -1;
       let validRow = ballRow;
-      
-      for (let row = ballRow + step; step > 0 ? row <= targetRow : row >= targetRow; row += step) {
+
+      for (
+        let row = ballRow + step;
+        step > 0 ? row <= targetRow : row >= targetRow;
+        row += step
+      ) {
         if (row < 0 || row >= gridRows || isCellOccupied(row, ballCol)) {
           break;
         }
         validRow = row;
       }
-      
+
       return { row: validRow, col: ballCol };
     }
   };
@@ -252,9 +310,9 @@ function DraggableBall({ cellSize, gridRows, gridCols, allBlocks }: DraggableBal
 
       if (!dragDirection && (Math.abs(deltaX) > 10 || Math.abs(deltaY) > 10)) {
         if (Math.abs(deltaX) > Math.abs(deltaY)) {
-          setDragDirection('horizontal');
+          setDragDirection("horizontal");
         } else {
-          setDragDirection('vertical');
+          setDragDirection("vertical");
         }
       }
 
@@ -270,15 +328,19 @@ function DraggableBall({ cellSize, gridRows, gridCols, allBlocks }: DraggableBal
       let targetRow = ballRow;
       let targetCol = ballCol;
 
-      if (dragDirection === 'horizontal') {
+      if (dragDirection === "horizontal") {
         targetCol = Math.max(0, Math.min(gridCols - 1, col));
         targetRow = ballRow;
-      } else if (dragDirection === 'vertical') {
+      } else if (dragDirection === "vertical") {
         targetRow = Math.max(0, Math.min(gridRows - 1, row));
         targetCol = ballCol;
       }
 
-      const validPosition = findValidPosition(targetRow, targetCol, dragDirection);
+      const validPosition = findValidPosition(
+        targetRow,
+        targetCol,
+        dragDirection,
+      );
       setPosition(validPosition);
     };
 
@@ -296,24 +358,29 @@ function DraggableBall({ cellSize, gridRows, gridCols, allBlocks }: DraggableBal
     const handleEnd = () => {
       setIsDragging(false);
       setDragDirection(null);
-      
+
       if (position.row !== ballRow || position.col !== ballCol) {
         if (!isCellOccupied(position.row, position.col)) {
-          const cellsMoved = Math.abs(position.row - ballRow) + Math.abs(position.col - ballCol);
-          
+          const cellsMoved =
+            Math.abs(position.row - ballRow) + Math.abs(position.col - ballCol);
+
           for (let i = 0; i < cellsMoved; i++) {
             incrementMoves();
           }
-          
+
           const currentLevelId = getCurrentLevel().id;
           moveBall(position.row, position.col);
-          
+
           if (winTimeoutRef.current) {
             clearTimeout(winTimeoutRef.current);
           }
-          
+
           winTimeoutRef.current = setTimeout(() => {
-            if (!gameCompleted && checkWinCondition() && getCurrentLevel().id === currentLevelId) {
+            if (
+              !gameCompleted &&
+              checkWinCondition() &&
+              getCurrentLevel().id === currentLevelId
+            ) {
               nextLevel();
             }
             winTimeoutRef.current = null;
@@ -324,18 +391,34 @@ function DraggableBall({ cellSize, gridRows, gridCols, allBlocks }: DraggableBal
       }
     };
 
-    document.addEventListener('mousemove', handleMouseMove);
-    document.addEventListener('mouseup', handleEnd);
-    document.addEventListener('touchmove', handleTouchMove);
-    document.addEventListener('touchend', handleEnd);
+    document.addEventListener("mousemove", handleMouseMove);
+    document.addEventListener("mouseup", handleEnd);
+    document.addEventListener("touchmove", handleTouchMove);
+    document.addEventListener("touchend", handleEnd);
 
     return () => {
-      document.removeEventListener('mousemove', handleMouseMove);
-      document.removeEventListener('mouseup', handleEnd);
-      document.removeEventListener('touchmove', handleTouchMove);
-      document.removeEventListener('touchend', handleEnd);
+      document.removeEventListener("mousemove", handleMouseMove);
+      document.removeEventListener("mouseup", handleEnd);
+      document.removeEventListener("touchmove", handleTouchMove);
+      document.removeEventListener("touchend", handleEnd);
     };
-  }, [isDragging, position, dragOffset, dragDirection, ballRow, ballCol, gridRows, gridCols, cellSize, moveBall, checkWinCondition, nextLevel, getCurrentLevel, gameCompleted, incrementMoves]);
+  }, [
+    isDragging,
+    position,
+    dragOffset,
+    dragDirection,
+    ballRow,
+    ballCol,
+    gridRows,
+    gridCols,
+    cellSize,
+    moveBall,
+    checkWinCondition,
+    nextLevel,
+    getCurrentLevel,
+    gameCompleted,
+    incrementMoves,
+  ]);
 
   return (
     <div
@@ -344,14 +427,14 @@ function DraggableBall({ cellSize, gridRows, gridCols, allBlocks }: DraggableBal
       style={{
         left: `${position.col * cellSize + cellSize / 2 - 15}px`,
         top: `${position.row * cellSize + cellSize / 2 - 15}px`,
-        width: '30px',
-        height: '30px',
+        width: "30px",
+        height: "30px",
         zIndex: isDragging ? 1000 : 100,
-        cursor: 'grab',
-        transition: isDragging ? 'none' : 'all 0.2s ease-out',
-        boxShadow: isDragging ? '0 8px 16px rgba(0, 0, 0, 0.3)' : undefined,
-        userSelect: 'none',
-        touchAction: 'none',
+        cursor: "grab",
+        transition: isDragging ? "none" : "all 0.2s ease-out",
+        boxShadow: isDragging ? "0 8px 16px rgba(0, 0, 0, 0.3)" : undefined,
+        userSelect: "none",
+        touchAction: "none",
       }}
       onMouseDown={handleMouseDown}
       onTouchStart={handleTouchStart}
@@ -360,7 +443,8 @@ function DraggableBall({ cellSize, gridRows, gridCols, allBlocks }: DraggableBal
 }
 
 export function PuzzleGrid() {
-  const { blocks, updateBlocks, incrementMoves, getCurrentLevel } = useMotionGame();
+  const { blocks, updateBlocks, incrementMoves, getCurrentLevel } =
+    useMotionGame();
   const level = getCurrentLevel();
   const gridRef = useRef<HTMLDivElement>(null);
   const [cellSize, setCellSize] = useState(60);
@@ -368,35 +452,36 @@ export function PuzzleGrid() {
   useEffect(() => {
     const updateCellSize = () => {
       if (!gridRef.current) return;
-      
+
       const container = gridRef.current.parentElement;
       if (!container) return;
 
       const maxWidth = container.clientWidth - 40;
       const maxHeight = container.clientHeight - 40;
-      
+
       const cellWidth = Math.floor(maxWidth / level.gridCols);
       const cellHeight = Math.floor(maxHeight / level.gridRows);
-      
+
       setCellSize(Math.min(cellWidth, cellHeight, 70));
     };
 
     updateCellSize();
-    window.addEventListener('resize', updateCellSize);
-    return () => window.removeEventListener('resize', updateCellSize);
+    window.addEventListener("resize", updateCellSize);
+    return () => window.removeEventListener("resize", updateCellSize);
   }, [level.gridCols, level.gridRows]);
 
   const handleBlockMove = (blockId: string, newRow: number, newCol: number) => {
-    const movedBlock = blocks.find(b => b.id === blockId);
+    const movedBlock = blocks.find((b) => b.id === blockId);
     if (!movedBlock) return;
-    
-    const cellsMoved = Math.abs(newRow - movedBlock.row) + Math.abs(newCol - movedBlock.col);
-    
-    const updatedBlocks = blocks.map(b =>
-      b.id === blockId ? { ...b, row: newRow, col: newCol } : b
+
+    const cellsMoved =
+      Math.abs(newRow - movedBlock.row) + Math.abs(newCol - movedBlock.col);
+
+    const updatedBlocks = blocks.map((b) =>
+      b.id === blockId ? { ...b, row: newRow, col: newCol } : b,
     );
     updateBlocks(updatedBlocks);
-    
+
     for (let i = 0; i < cellsMoved; i++) {
       incrementMoves();
     }
@@ -412,7 +497,7 @@ export function PuzzleGrid() {
       style={{
         width: `${gridWidth}px`,
         height: `${gridHeight}px`,
-        border: '3px solid #e0e0e0',
+        border: "3px solid #e0e0e0",
       }}
     >
       {Array.from({ length: level.gridRows }).map((_, row) =>
@@ -427,7 +512,7 @@ export function PuzzleGrid() {
               height: `${cellSize}px`,
             }}
           />
-        ))
+        )),
       )}
 
       <div
@@ -435,8 +520,8 @@ export function PuzzleGrid() {
         style={{
           left: `${level.ballStart.col * cellSize + cellSize / 2 - 15}px`,
           top: `${level.ballStart.row * cellSize + cellSize / 2 - 15}px`,
-          width: '30px',
-          height: '30px',
+          width: "30px",
+          height: "30px",
           zIndex: 5,
         }}
         title="Start - Ball begins here"
@@ -449,8 +534,8 @@ export function PuzzleGrid() {
         style={{
           left: `${level.ballEnd.col * cellSize + cellSize / 2 - 15}px`,
           top: `${level.ballEnd.row * cellSize + cellSize / 2 - 15}px`,
-          width: '30px',
-          height: '30px',
+          width: "30px",
+          height: "30px",
           zIndex: 5,
         }}
         title="End - Ball must reach here"

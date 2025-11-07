@@ -54,7 +54,7 @@ export function GameHeader() {
                   2. Drag ball from Start(S)(green) to End(E)(red)
                 </p>
                 <p className="text-m text-black-500 dark:text-black-500">
-                  Complete the puzzle before the timer runs out!
+                  3. Complete the puzzle before the timer runs out!
                 </p>
                 <p className="text-m font-bold text-black-500 dark:text-black-500">
                   Target Moves: {level.minMoves}

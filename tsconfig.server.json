@@ -5,10 +5,10 @@
     "moduleResolution": "NodeNext",
     "outDir": "dist/server",
     "rootDir": "server",
-    "allowJs": true,
-    "resolveJsonModule": true,
     "esModuleInterop": true,
-    "skipLibCheck": true
+    "strict": false,
+    "skipLibCheck": true,
+    "resolveJsonModule": true
   },
-  "include": ["server"]
+  "include": ["server/**/*"]
 }

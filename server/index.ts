@@ -10,11 +10,12 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
-// Simple logger (removed Vite logger)
+// Simple logger
 function log(message: string) {
   console.log(message);
 }
 
+// API logging middleware
 app.use((req, res, next) => {
   const start = Date.now();
   const reqPath = req.path;
@@ -43,7 +44,7 @@ app.use((req, res, next) => {
 (async () => {
   const server = await registerRoutes(app);
 
-  // Error handler
+  // Global error handler
   app.use((err: any, _req: Request, res: Response, _next: NextFunction) => {
     const status = err.status || err.statusCode || 500;
     const message = err.message || "Internal Server Error";
@@ -51,9 +52,10 @@ app.use((req, res, next) => {
     throw err;
   });
 
-  // 🚀 PRODUCTION MODE (Railway)
+  // 🚀 Production: serve Vite build from dist/public
   if (process.env.NODE_ENV === "production") {
     const publicPath = path.join(__dirname, "..", "public");
+
     app.use(express.static(publicPath));
 
     app.get("*", (_req, res) => {

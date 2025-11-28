@@ -61,12 +61,6 @@ app.use((req, res, next) => {
     });
   }
 
-  // 🧪 DEVELOPMENT MODE ONLY
-  if (process.env.NODE_ENV === "development") {
-    const { setupVite } = await import("./vite.js");
-    await setupVite(app, server);
-  }
-
   const port = Number(process.env.PORT) || 5000;
   server.listen(port, () => {
     log(`Serving on port ${port}`);

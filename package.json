@@ -5,7 +5,7 @@
   "license": "MIT",
   "scripts": {
     "dev": "tsx server/index.ts",
-    "build:server": "tsc -p tsconfig.server.json",
+    "build:server": "tsc -p server-config/tsconfig.json",
     "build:client": "vite build",
     "build": "npm run build:server && npm run build:client",
     "start": "NODE_ENV=production node dist/server/index.js"

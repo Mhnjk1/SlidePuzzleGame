@@ -20,7 +20,7 @@ function DraggableBlock({
   allBlocks,
   onMove,
 }: DraggableBlockProps) {
-  const { ballRow, ballCol } = useMotionGame();
+  const store = useMotionGame;
   const [isDragging, setIsDragging] = useState(false);
   const [position, setPosition] = useState({ row: block.row, col: block.col });
   const [dragOffset, setDragOffset] = useState({ x: 0, y: 0 });
@@ -91,6 +91,8 @@ function DraggableBlock({
     const handleEnd = () => {
       setIsDragging(false);
 
+      const { ballRow, ballCol } = store.getState();
+      
       if (
         !checkCollision(
           block,
@@ -132,8 +134,7 @@ function DraggableBlock({
     gridCols,
     cellSize,
     onMove,
-    ballRow,
-    ballCol,
+    store,
   ]);
 
   const style: React.CSSProperties = {
@@ -429,7 +430,7 @@ function DraggableBall({
         top: `${position.row * cellSize + cellSize / 2 - 15}px`,
         width: "30px",
         height: "30px",
-        zIndex: isDragging ? 1000 : 100,
+        zIndex: isDragging ? 2000 : 500,
         cursor: "grab",
         transition: isDragging ? "none" : "all 0.2s ease-out",
         boxShadow: isDragging ? "0 8px 16px rgba(0, 0, 0, 0.3)" : undefined,
